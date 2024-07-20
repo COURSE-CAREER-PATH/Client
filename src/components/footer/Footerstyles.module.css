@@ -1,0 +1,8 @@
+li{
+    font-size: 12px;
+    margin: 10px 0;
+    color: #bfbfbf;
+}
+li:hover{
+    color: #a8a8a8;
+}
