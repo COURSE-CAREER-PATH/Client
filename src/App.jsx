@@ -7,6 +7,7 @@ import Nopage from "./components/Nopage";
 import Footer from "./components/footer/Footer";
 import AdminLogin from "./components/footer/Adminlogin/AdminLogin";
 import Forms from "./components/footer/Adminlogin/Forms";
+import FormsTwo from "./components/footer/Adminlogin/FormsTwo";
 
 
 function App() {
@@ -46,6 +47,14 @@ function App() {
             element={
               <>
                   <Forms/>
+              </>
+            }
+          />
+          <Route
+            path="/formsTwo"
+            element={
+              <>
+                  <FormsTwo/>
               </>
             }
           />
