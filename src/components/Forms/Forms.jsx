@@ -232,7 +232,9 @@ function Forms() {
             <Input type='email' placeholder='Email' required/>
             <Input type='password' placeholder='Password' required/>
             <Anchor href='#'>Forgot your password?</Anchor>
+            <Link to={'/firstPrompt'}>
             <Button>Log In</Button>
+            </Link>
           </Form>
         </SignInContainer>
 

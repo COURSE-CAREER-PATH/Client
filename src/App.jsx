@@ -5,9 +5,8 @@ import { Subhero } from "./components/Subhero";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Nopage from "./components/Nopage";
 import Footer from "./components/footer/Footer";
-import AdminLogin from "./components/footer/Adminlogin/AdminLogin";
-import Forms from "./components/footer/Adminlogin/Forms";
-import FormsTwo from "./components/footer/Adminlogin/FormsTwo";
+import Forms from "./components/Forms/Forms";
+import FirstPrompt from "./components/Forms/FirstPrompt";
 
 
 function App() {
@@ -51,10 +50,10 @@ function App() {
             }
           />
           <Route
-            path="/formsTwo"
+            path="/firstPrompt"
             element={
               <>
-                  <FormsTwo/>
+                <FirstPrompt/>
               </>
             }
           />

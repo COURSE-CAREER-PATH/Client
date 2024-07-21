@@ -6,7 +6,7 @@ const classesTwo = `px-3 py-1 bg-gradient-to-tr from-purple-700 to-blue-700 roun
 export const Buttons = ({ value, valueTwo }) => {
     return (
         <div>
-            <button className={`${classesOne} ${valueTwo? 'px-16 py-5 text-xl transform active:animate-ping transition duration-500 ease-in-out':''}`}>{value}</button>
+            <button className={`${classesOne} ${valueTwo? 'py-5 px-24 text-xl transform active:animate-ping transition duration-500 ease-in-out':''}`}>{value}</button>
         </div>
     );
 };
@@ -14,7 +14,7 @@ export const Buttons = ({ value, valueTwo }) => {
 export const ButtonsTwo = ({ value, valueTwo }) => {
     return (
         <div>
-            <button className={`${classesTwo} ${valueTwo? 'px-16 py-5 text-xl transform active:animate-ping transition duration-500 ease-in-out':''}`}>{value}</button>
+            <button className={`${classesTwo} ${valueTwo? 'px-24 py-5 text-xl transform active:animate-ping transition duration-500 ease-in-out':''}`}>{value}</button>
         </div>
     );
 };
