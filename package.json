@@ -10,7 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^2.1.2",
+    "@heroicons/react": "^2.1.5",
+    "countries-state-city-dropdown": "^2.0.7",
+    "country-state-city": "^3.2.1",
     "framer-motion": "^11.2.12",
+    "geonames": "^0.2.1",
+    "headlessui": "^0.0.0",
     "lucide-react": "^0.399.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

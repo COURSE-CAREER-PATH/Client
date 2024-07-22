@@ -7,6 +7,7 @@ import Nopage from "./components/Nopage";
 import Footer from "./components/footer/Footer";
 import Forms from "./components/Forms/Forms";
 import FirstPrompt from "./components/Forms/FirstPrompt";
+import ClientApp from "./components/Forms/ClientsFolder/ClientApp";
 
 
 function App() {
@@ -54,6 +55,14 @@ function App() {
             element={
               <>
                 <FirstPrompt/>
+              </>
+            }
+          />
+          <Route
+            path="/ClientApp"
+            element={
+              <>
+                <ClientApp/>
               </>
             }
           />
