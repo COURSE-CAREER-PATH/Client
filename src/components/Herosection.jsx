@@ -28,7 +28,7 @@ const Herosection = () => {
    muted
    />
     </div>
-     <div className="absolute bottom-0 -z-10">
+     <div className="absolute top-0 -z-10">
      <img src={Herobg2} alt="" className='lg:hidden flex'/>
      </div>
      <div className="flex flex-row items-center mt-20 justify-center">

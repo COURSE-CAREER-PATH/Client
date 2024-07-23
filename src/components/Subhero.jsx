@@ -20,7 +20,7 @@ import Ui from '../assets/img/img9.jpg'
 export const Subhero = () => {
   return (
     <div className="">
-        <div className="lg:mt-20 mt-[20rem]  mb-[5rem] border-b border-neutral-700  lg:border-t lg:pt-24">
+        <div className="lg:mt-20 mt-[45rem]  mb-[5rem] border-b border-neutral-700  lg:border-t lg:pt-24">
             <h1 className="uppercase text-center pb-10 font-Ubuntu text-xl lg:text-3xl text-neutral-400">
                 What We Do
             </h1>

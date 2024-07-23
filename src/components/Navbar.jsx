@@ -21,9 +21,9 @@ const Navbar = () => {
 
   return (
     <div className="">
-      <nav className="fixed w-full -top-1 z-50 backdrop-blur-xl border-b border-neutral-80 flex items-center justify-around lg:gap-8 gap-x-72 px-5">
+      <nav className="fixed w-full -top-1 z-50 backdrop-blur-xl border-b border-neutral-80 flex items-center justify-between lg:gap-8 px-5">
         <div className="flex">
-            <div className="w-20 absolute left-11 -top-[0.5rem]">
+            <div className="w-20  left-11 -top-[0.5rem]">
               <Link to={'/'}>
               <img src={Logo} alt="" />
               </Link>
