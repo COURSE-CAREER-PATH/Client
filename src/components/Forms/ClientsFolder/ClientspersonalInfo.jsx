@@ -1,6 +1,8 @@
+import React from 'react'
 import { Buttons, Input } from '../../Buttons'
 import CountriesList from './CountriesList'
-import Clientsprofiledetails from './Clientsprofiledetails'
+import { Link } from 'react-router-dom'
+
 
 const Sectionheader = 'text-center pb-2'
 
@@ -37,7 +39,9 @@ const ClientspersonalInfo = () => {
           <Input Labelvalue={'Mobile Number'} Number={'number'} />
         </section>
         <CountriesList/>
+        <Link to={'/profile'}>
         <Buttons value={'Next'} />
+        </Link>
       </form>
     </div>
     </div>

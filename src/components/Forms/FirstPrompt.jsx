@@ -16,7 +16,7 @@ const FirstPrompt = () => {
     <div className='flex flex-col md:flex-row justify-center items-center'>
         <div className={`${DivStyles}`}>
         <img src={Client} alt=""  className='mb-10 md:mb-5'/>
-        <Link to={'/ClientApp'}>
+        <Link to={'/info'}>
             <Buttons value={'I Am a Client'}/>
         </Link>
         </div>

@@ -7,7 +7,8 @@ import Nopage from "./components/Nopage";
 import Footer from "./components/footer/Footer";
 import Forms from "./components/Forms/Forms";
 import FirstPrompt from "./components/Forms/FirstPrompt";
-import ClientApp from "./components/Forms/ClientsFolder/ClientApp";
+import ClientspersonalInfo from "./components/Forms/ClientsFolder/ClientspersonalInfo";
+import Clientsprofiledetails from "./components/Forms/ClientsFolder/Clientsprofiledetails";
 
 
 function App() {
@@ -58,11 +59,20 @@ function App() {
               </>
             }
           />
+         
           <Route
-            path="/ClientApp"
+            path="/profile"
             element={
               <>
-                <ClientApp/>
+                <Clientsprofiledetails/>
+              </>
+            }
+          />
+          <Route
+            path="/info"
+            element={
+              <>
+                <ClientspersonalInfo/>
               </>
             }
           />

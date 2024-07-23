@@ -63,10 +63,14 @@ const CountriesList = () => {
                 }
             </div>
             <div className="flex flex-col w-full md:w-auto md:items-center md:text-center">
-                <p className="font-semi-bold">
+                <p className="font-semi-bold pb-2">
                   Aditional  Address:
                 </p>
                     <Input Labelvalue={'Additional address'} width={'full'} />
+                <p className="font-semi-bold py-2">
+                    Zip Code:
+                </p>
+                    <Input Labelvalue={'Zip Code'} width={'full'} Number={'number'}/>
                 </div>
            </div>
         </form>
