@@ -217,16 +217,17 @@ function Forms() {
     <Main>
       <Container>
         <SignUpContainer signinIn={signIn}>
-          <Form>
+          <Form className='text-neutral-600'>
             <Title className='text-3xl text-purple-700 py-3 font-Ubuntu'>Create Account</Title>
             <Input type='text' placeholder='Name' required/>
             <Input type='email' placeholder='Email' required/>
             <Input type='password' placeholder='Password' required />
+            <Input type='password' placeholder='Re enter Password' required />
             <Button>Sign Up</Button>
           </Form>
         </SignUpContainer>
 
-        <SignInContainer signinIn={signIn}>
+        <SignInContainer signinIn={signIn} className='text-neutral-600'>
           <Form>
             <Title  className='text-3xl text-purple-700 py-3 font-Ubuntu'>Log In</Title>
             <Input type='email' placeholder='Email' required/>
