@@ -11,12 +11,14 @@ import FirstPrompt from "./components/Forms/FirstPrompt";
 import ClientspersonalInfo from "./components/Forms/ClientsFolder/ClientspersonalInfo";
 import Clientsprofiledetails from "./components/Forms/ClientsFolder/Clientsprofiledetails";
 import Maindashboard from "./components/Dashboard/Maindashboard";
+import { GlobalStateProvider } from "./components/Forms/ClientsFolder/GlobalStateProvider";
 
 
 
 function App() {
   return (
     <>
+    <GlobalStateProvider>
           <Router>
         <Routes>
           <Route index element={
@@ -90,6 +92,7 @@ function App() {
          
         </Routes>
       </Router>
+    </GlobalStateProvider>
     </>
   );
 }
