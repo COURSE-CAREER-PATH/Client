@@ -1,3 +1,4 @@
+
 import Courses from "./components/coursesandjobs/Courses";
 import Herosection from "./components/Herosection";
 import Navbar from "./components/Navbar";
@@ -9,6 +10,8 @@ import Forms from "./components/Forms/Forms";
 import FirstPrompt from "./components/Forms/FirstPrompt";
 import ClientspersonalInfo from "./components/Forms/ClientsFolder/ClientspersonalInfo";
 import Clientsprofiledetails from "./components/Forms/ClientsFolder/Clientsprofiledetails";
+import Maindashboard from "./components/Dashboard/Maindashboard";
+
 
 
 function App() {
@@ -73,6 +76,14 @@ function App() {
             element={
               <>
                 <ClientspersonalInfo/>
+              </>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <>
+                <Maindashboard/>
               </>
             }
           />

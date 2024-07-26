@@ -41,9 +41,9 @@ import { useState } from 'react'
             'transition duration-2000 ease-in data-[leave]:data-[closed]:opacity-0 z-30'
           )}
         >
-          {filteredPeople.map((person) => (
+          {filteredPeople.map((person, index) => (
             <ComboboxOption
-              key={person.id}
+              key={index}
               value={person}
               className=" flex cursor-pointer items-center gap-2 rounded-lg py-1.5 px-3 select-none data-[focus]:bg-white/10"
             >
