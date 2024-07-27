@@ -16,6 +16,11 @@ export const GlobalStateProvider = ({ children }) => {
     Email: '',
     Password: '',
     ProfilePicture: '',
+    Language: '',
+    Bio: '',
+    LinkedIn: '',
+    Facebook: '',
+    Twitter: '',
     
   });
 

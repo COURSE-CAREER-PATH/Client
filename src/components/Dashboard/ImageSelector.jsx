@@ -22,10 +22,10 @@ const ImageSelector = () => {
     <div className="flex flex-col  mb-5">
       <div className="relative">
         {selectedImage ? (
-          <ImagePreview src={selectedImage} alt="Selected profile" className='w-44 h-44 md:w-72 md:h-72'/>
+          <ImagePreview src={selectedImage} alt="Selected profile" className='w-44 h-44'/>
         ) : (
-          <div className="flex items-center justify-center w-36 h-36  rounded-full border-2 border-purple-700 md:w-72 md:h-72">
-            <CgProfile className='text-purple-600' size={50}/>
+          <div className="flex items-center justify-center w-36 h-36  rounded-full border-2 border-purple-700">
+            <CgProfile className='text-purple-600' size={60}/>
           </div>
         )}
         <Label htmlFor="file-input" className="absolute bottom-0 right-0 transform translate-x-1/4 translate-y-1/4">

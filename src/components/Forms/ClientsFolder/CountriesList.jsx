@@ -23,7 +23,7 @@ const CountriesList = () => {
 
   useEffect(() => {
     setStateData(State.getStatesOfCountry(country?.isoCode));
-    handleInputChange('country', country?.name);
+    handleInputChange('Country', country?.name);
     setState(undefined); // Reset state when country changes
     setCity(undefined); // Reset city when country changes
   }, [country]);
@@ -31,7 +31,7 @@ const CountriesList = () => {
   useEffect(() => {
     if (state) {
       setCityData(City.getCitiesOfState(country?.isoCode, state?.isoCode));
-      handleInputChange('state', state?.name);
+      handleInputChange('State', state?.name);
       setCity(undefined); // Reset city when state changes
     } else {
       setCityData([]);
@@ -40,7 +40,7 @@ const CountriesList = () => {
 
   useEffect(() => {
     if (city) {
-      handleInputChange('city', city?.name);
+      handleInputChange('City', city?.name);
     }
   }, [city]);
 

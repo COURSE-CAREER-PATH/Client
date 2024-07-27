@@ -8,7 +8,8 @@ export default {
     extend: {
       fontFamily:{
         Ubuntu: ['Ubuntu'],
-        Playwrite: ['Playwrite']
+        'playwrite': ['"Playwrite DK Uloopet"', 'sans-serif'],
+        'josefin': ["Josefin Sans", "sans-serif"]
       
       }
     },
