@@ -1,6 +1,6 @@
 // import { Hero } from "."
 import React from 'react';
-import Herobg from '../assets/videos/vid1.mp4'
+import Herobg from '../assets/videos/vid2.mp4'
 import Herobg2 from '../assets/img/img8.jpg'
 import { Buttons,  ButtonsTwo } from "./Buttons";
 import { Link } from 'react-router-dom';

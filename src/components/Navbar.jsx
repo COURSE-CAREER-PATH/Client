@@ -2,12 +2,13 @@ import  {Link} from "react-router-dom";
 import React, { useState } from "react";
 import { X, MenuIcon } from "lucide-react";
 import dropdownBg from '../assets/img/img2.jpg';
-import Logo from '../assets/img/Ccp logo .png';
+import Logo from '../assets/icons/ccplogo2.png';
 import { Buttons, ButtonsTwo } from "./Buttons";
+import { enablePageScroll, disablePageScroll } from "scroll-lock";
 
 
 const MdNavStylesLi = `border-neutral-600 px-5 py-5`
-const LgNavStylesLi = `border-r border-neutral-600 px-5  w-28`
+const LgNavStylesLi = `border-r border-neutral-600 px-5  w-32`
 const MdNavStylesA = `font-bold text-neutral-100 hover:text-neutral-300`
 const LgNavStylesA = `font-bold text-neutral-100 hover:text-neutral-400`
 
@@ -17,15 +18,20 @@ const Navbar = () => {
 
   const toggleNav = () => {
     setMobileDrawerOpen(!mobileDrawerOpen);
+    if (mobileDrawerOpen) {
+      enablePageScroll()
+    }else{
+      disablePageScroll()
+    }
   };
 
   return (
     <div className="">
       <nav className="fixed w-full -top-1 z-50 backdrop-blur-xl border-b border-neutral-80 flex items-center justify-between lg:gap-8 px-5">
         <div className="flex">
-            <div className="w-20  left-11 -top-[0.5rem]">
+            <div className="">
               <Link to={'/'}>
-              <img src={Logo} alt="" />
+              <img src={Logo} alt="" className="w-12"/>
               </Link>
             </div>
           <h1 className="text-2xl">

@@ -55,6 +55,9 @@ const ClientspersonalInfo = () => {
         </div>
       )}
       <div className='flex flex-col lg:flex-row'>
+       <div className={InfoSection}>
+      Info As Client
+      </div>
       <div className={InfoSection}>
         <div onClick={toggleProfileImage}>
         <ImageSelector />
@@ -142,9 +145,6 @@ const ClientspersonalInfo = () => {
         <div className="mt-10" onClick={ScrollToPersonalInfo}>
         <Buttons value={'Edit profile'}/>
       </div>
-      </div>
-      <div className={InfoSection}>
-      Info As Client
       </div>
      <div className={InfoSection}>
         Info As freelancer
