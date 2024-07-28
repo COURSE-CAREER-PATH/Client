@@ -1,5 +1,5 @@
 // ClientspersonalInfo.js
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import { Buttons, Input, TextArea, } from '../../Buttons';
 import CountriesList from './CountriesList';
 import ImageSelector from '../../Dashboard/ImageSelector';
@@ -9,15 +9,26 @@ import LanguagesList from './LanguagesList';
 import { LinkedinIcon } from 'lucide-react';
 import { FaFacebook } from 'react-icons/fa';
 import { BsTwitterX } from 'react-icons/bs';
+import { X } from 'lucide-react';
+import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 const Divheader = 'text-center pb-2';
 
-const InfoSection = `h-screen flex flex-col  items-center justify-center lg:w-[33%] mx-4 my-3 border border-purple-700 rounded-3xl py-10 hover:border-neutral-400 `
+const InfoSection = `mt-28 h-auto flex flex-col  items-center justify-center lg:w-[33%] mx-4 my-3 border border-purple-700 rounded-3xl py-10 hover:border-neutral-400 `
 
 const linkDivs = `flex items-center gap-x-3 mx-2 text-2xl`
 
 const ClientspersonalInfo = () => {
   const { formData, setFormData } = useGlobalState();
+  const [fullProfileImage, setFullProfileImage] = useState(false);
   const PersonalInfoRef = useRef(null)
+  const toggleProfileImage = () => {
+    setFullProfileImage(!fullProfileImage);
+    if (fullProfileImage) {
+      enablePageScroll()
+    }else{
+      disablePageScroll()
+    }
+  };
 
   const handleInputChange = (name, value) => {
     setFormData({
@@ -31,9 +42,23 @@ const ClientspersonalInfo = () => {
   }
   return (
     <div className=" font-josefin">
+      {fullProfileImage && (
+        <div className="absolute inset-0 flex items-center justify-center z-30 backdrop-blur-2xl">
+          <div className="relative h-auto w-full max-w-screen-md p-4">
+            <button onClick={toggleProfileImage} className="absolute top-2 right-2 text-white transform active:rotate-180 transition duration-500 ease-in-out">
+              <X />
+            </button>
+            <div className="flex items-center justify-center ">
+              <img src={formData.ProfilePicture} alt="No Profile Photo" className="max-h-[90dvh] w-[90%] rounded-3xl border border-purple-700" />
+            </div>
+          </div>
+        </div>
+      )}
       <div className='flex flex-col lg:flex-row'>
       <div className={InfoSection}>
+        <div onClick={toggleProfileImage}>
         <ImageSelector />
+        </div>
         <div className="md:text-2xl lg:text-3xl text-2xl font-bold flex gap-2">
           {formData.firstName && formData.lastName ? (
             <div>
@@ -46,7 +71,7 @@ const ClientspersonalInfo = () => {
             </p>
           )}
         </div>
-        <div className="text-sm my-3 md:my-5">
+        <div className="text-sm my-3 md:my-5 text-center max-w-72 md:max-w-96">
          {
           formData.Bio? (
               formData.Bio
@@ -62,10 +87,10 @@ const ClientspersonalInfo = () => {
             <ImLocation/>
           </p>
           <p>
-            {formData.Country},
+            {formData.Country} -
           </p>
           <p>
-            {formData.State},
+            {formData.State} -
           </p>
           <p>
             {formData.City}.

@@ -9,7 +9,6 @@ import Footer from "./components/footer/Footer";
 import Forms from "./components/Forms/Forms";
 import FirstPrompt from "./components/Forms/FirstPrompt";
 import ClientspersonalInfo from "./components/Forms/ClientsFolder/ClientspersonalInfo";
-import Clientsprofiledetails from "./components/Forms/ClientsFolder/Clientsprofiledetails";
 import Maindashboard from "./components/Dashboard/Maindashboard";
 import { GlobalStateProvider } from "./components/Forms/ClientsFolder/GlobalStateProvider";
 
@@ -65,14 +64,7 @@ function App() {
             }
           />
          
-          <Route
-            path="/profile"
-            element={
-              <>
-                <Clientsprofiledetails/>
-              </>
-            }
-          />
+         
           <Route
             path="/info"
             element={
