@@ -42,7 +42,6 @@ const LanguagesDropdown = () => {
     const selectedLang = event.target.value;
     setSelectedLanguage(selectedLang);
     handleInputChange('Language', selectedLang);
-    console.log('Selected language:', selectedLang);
   };
 
   return (

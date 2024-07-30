@@ -1,65 +1,57 @@
-import React from 'react'
-import { User, Briefcase, Bell, Menu, Handshake } from 'lucide-react'
-import ProfilePage from './ProfilePage'
+import React, { useState } from 'react';
+import { User, Briefcase, Bell, Menu, Handshake } from 'lucide-react';
+import ProfilePage from './ProfilePage';
+
+const navItems = [
+  { id: 'profile', icon: <User />, label: 'Profile' },
+  { id: 'apply', icon: <Briefcase />, label: 'Apply for Job' },
+  { id: 'offer', icon: <Handshake />, label: 'Offer a Job' },
+  { id: 'notification', icon: <Bell />, label: 'Notification' },
+  { id: 'menu', icon: <Menu />, label: 'Menu' },
+];
 
 const HeaderdivStyles = `
-flex gap-2 border-l px-2 cursor-pointer hover:text-neutral-400 border-neutral-500 transition active:animate-ping transition duration-500 ease-in-out 
-`
-const Icons = `
-text-center
-`
+  flex gap-2 cursor-pointer hover:text-neutral-400 transition duration-500 ease-in-out
+`;
+
 const H1styles = `
-    hidden md:flex
-`
+  hidden md:flex
+`;
+
 const Maindashboard = () => {
+  const [activeItem, setActiveItem] = useState('profile');
+
+  const handleNavItemClick = (item) => {
+    setActiveItem(item.id);
+    console.log(item.label); // Log the label of the clicked item
+  };
+
   return (
-    <div className=''>
-        <nav className=" text-center items-center justify-around flex w-full border-b border-neutral-500 h-16 py-10 px-4 text-neutral-300 backdrop-blur-sm mb-16 fixed z-30">
-            <div className={HeaderdivStyles}><span>
-                <User/>
-                </span>
-                    <h1 className={H1styles}>
-                    Profile    
-                    </h1>                
-                </div>
-            <div className={HeaderdivStyles}><span>
-                <Briefcase/>
-                </span>
-                    <h1 className={H1styles}>
-                    Apply for Job    
-                    </h1>                
-                </div>
-
-            <div className={HeaderdivStyles}>
-                <span>
-                    <Handshake/>
-                </span>
-                    <h1 className={H1styles}>
-                    Offer a job
-                    </h1>
-                </div>
-            <div className={HeaderdivStyles}>
-                <span>
-                    <Bell/>
-                </span>
-                    <h1 className={H1styles}>
-                    Notification
-                    </h1>
-                </div>
-            <div className={HeaderdivStyles}
+    <>
+      <div className='fixed w-full'>
+        <nav className="text-center items-center justify-around flex w-full border-b border-neutral-500 h-16 py-10 px-4 text-neutral-300 backdrop-blur-sm z-30">
+          {navItems.map((item, index) => (
+            <div
+              key={item.id}
+              className={HeaderdivStyles}
+              onClick={() => handleNavItemClick(item)}
             >
-                <span>
-                    <Menu/>
-                </span>
-                <h1 className={H1styles}>
-                Menu
-                </h1>
-                </div>
+              <span>{item.icon}</span>
+              <h1 className={H1styles}>{item.label}</h1>
+            </div>
+          ))}
         </nav>
-
-        <ProfilePage/>
-    </div>
-  )
+        <div
+          className='absolute bottom-0 transition-all duration-500 ease-in-out bg-purple-700 h-1 rounded-full'
+          style={{
+            width: '20%',
+            left: `${navItems.findIndex(item => item.id === activeItem) * 20}%`
+          }}
+        ></div>
+      </div>
+      <ProfilePage />
+    </>
+  );
 }
 
-export default Maindashboard
+export default Maindashboard;

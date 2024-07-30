@@ -21,6 +21,10 @@ export const GlobalStateProvider = ({ children }) => {
     LinkedIn: '',
     Facebook: '',
     Twitter: '',
+    Skills: ``,
+    Overview: '',
+    Profession: '',
+    rating: '',
     
   });
 

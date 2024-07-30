@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 import { jobOptions } from '../../index'; // Adjust the path as necessary
+import { useGlobalState } from './GlobalStateProvider';
 
 const MultiSelectDropdown = () => {
-    const [selectedOptions, setSelectedOptions] = useState([]);
+    const { formData, setFormData } = useGlobalState();
+    const [selectedOptions, setSelectedOptions] = useState(formData.Jobs || []);
 
     const handleChange = (selected) => {
-        setSelectedOptions(selected || []);
+        const updatedOptions = selected || [];
+        setSelectedOptions(updatedOptions);
+        handleInputChange('Jobs', updatedOptions);
+    };
+
+    const handleInputChange = (name, value) => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));
     };
 
     // Filter out selected options from the available options
@@ -16,20 +27,15 @@ const MultiSelectDropdown = () => {
 
     return (
         <div className='text-neutral-900'>
-            <Select
+            <Select 
+                className=''
                 isMulti
                 value={selectedOptions}
                 onChange={handleChange}
                 options={availableOptions} // Use the filtered options array
                 placeholder="Select options..."
             />
-            <div style={{ marginTop: '10px' }}>
-                {selectedOptions.map(option => (
-                    <div key={option.value} className='border rounded-full border-purple-700 text-neutral-300 px-3 py-2 inline-block m-1 hover:text-neutral-500 transition'>
-                        {option.label}
-                    </div>
-                ))}
-            </div>
+           
         </div>
     );
 };

@@ -10,7 +10,6 @@ const ItemList = () => {
 
   const handleClick = (item) => {
     setSelectedItem(item.value);
-    console.log(item.value);
   };
 
   return (

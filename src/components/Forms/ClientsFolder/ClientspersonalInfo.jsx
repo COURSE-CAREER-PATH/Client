@@ -6,11 +6,13 @@ import ImageSelector from '../../Dashboard/ImageSelector';
 import { useGlobalState } from './GlobalStateProvider';
 import { ImLocation } from 'react-icons/im';
 import LanguagesList from './LanguagesList';
-import { LinkedinIcon } from 'lucide-react';
+import { DownloadIcon, LinkedinIcon } from 'lucide-react';
 import { FaFacebook } from 'react-icons/fa';
 import { BsTwitterX } from 'react-icons/bs';
 import { X } from 'lucide-react';
 import { disablePageScroll, enablePageScroll } from 'scroll-lock';
+import FreelancerInfo from './FreelancerFolder/FreeLancerInfo';
+import MultiSelectDropdown from './MultiSelectDropdown';
 const Divheader = 'text-center pb-2';
 
 const InfoSection = `mt-28 h-auto flex flex-col  items-center justify-center lg:w-[33%] mx-4 my-3 border border-purple-700 rounded-3xl py-10 hover:border-neutral-400 `
@@ -45,8 +47,11 @@ const ClientspersonalInfo = () => {
       {fullProfileImage && (
         <div className="absolute inset-0 flex items-center justify-center z-30 backdrop-blur-2xl">
           <div className="relative h-auto w-full max-w-screen-md p-4">
-            <button onClick={toggleProfileImage} className="absolute top-2 right-2 text-white transform active:rotate-180 transition duration-500 ease-in-out">
-              <X />
+            <button onClick={toggleProfileImage} className="absolute top-2 right-2 text-white  flex flex-col gap-8">
+              <X className='transform active:rotate-180 transition duration-500 ease-in-out'/>
+              <a href={formData.ProfilePicture} download={formData.ProfilePicture} className='transform active:animate-bounce transition duration-500 ease-in-out'>
+              <DownloadIcon/>
+              </a>
             </button>
             <div className="flex items-center justify-center ">
               <img src={formData.ProfilePicture} alt="No Profile Photo" className="max-h-[90dvh] w-[90%] rounded-3xl border border-purple-700" />
@@ -63,10 +68,9 @@ const ClientspersonalInfo = () => {
         <ImageSelector />
         </div>
         <div className="md:text-2xl lg:text-3xl text-2xl font-bold flex gap-2">
-          {formData.firstName && formData.lastName ? (
+          {formData.userName? (
             <div>
-              <h1>{formData.firstName}</h1>
-              <h1>{formData.lastName}</h1>
+              <h1>{formData.userName}</h1>
             </div>
           ) : (
             <p>
@@ -147,7 +151,7 @@ const ClientspersonalInfo = () => {
       </div>
       </div>
      <div className={InfoSection}>
-        Info As freelancer
+        <FreelancerInfo/>
       </div>
       </div>
       <form className="flex flex-col w-[90%] border border-purple-700 rounded-3xl mx-auto py-10 mt-2 px-5 h-auto" ref={PersonalInfoRef}>
@@ -252,7 +256,47 @@ const ClientspersonalInfo = () => {
           </div>
         </div>
         </div>
+        
+         
       </form>
+
+      <form className='border border-purple-700 my-10 w-[90%] mx-auto rounded-3xl h-auto py-10 lg:h-screen flex flex-col'>
+      <div className="gap-10 flex flex-col capitalize text-center">
+          <h1 className='text-center my-10 mb-5 text-3xl text-neutral-500 '>
+            Info As Freelancer
+          </h1>
+          <div className="md:w-1/2 lg:w-1/4 mx-auto ">
+          <p>
+            What Is Your Dominant Profession
+          </p>
+          <Input Labelvalue={'Profession'}
+           width={'full'}
+           value={formData.Profession}
+           onChange={(value) => handleInputChange('Profession', value)}
+          />
+          </div>
+          <div className="mx-5">
+            <p>
+              work history and experience overview
+            </p>
+            <TextArea labelValue={'Overview'}
+             value={formData.Overview}
+             onChange={(value) => handleInputChange('Overview', value)}
+            />
+          </div>
+
+          <div className="md:w-1/2 lg:w-1/4 mx-auto">
+              <p>
+                List of skill set you can offer
+              </p>
+            <MultiSelectDropdown/>
+          </div>
+          <div className="">
+          </div>
+          </div>
+      </form>
+
+      
     </div>
   );
 };
