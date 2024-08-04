@@ -1,6 +1,6 @@
 // ClientspersonalInfo.js
 import React, {useRef, useState} from 'react';
-import { Buttons, Input, TextArea, } from '../../Buttons';
+import { Buttons, ButtonsTwo, Input, TextArea, } from '../../Buttons';
 import CountriesList from './CountriesList';
 import ImageSelector from '../../Dashboard/ImageSelector';
 import { useGlobalState } from './GlobalStateProvider';
@@ -13,9 +13,12 @@ import { X } from 'lucide-react';
 import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 import FreelancerInfo from './FreelancerFolder/FreeLancerInfo';
 import MultiSelectDropdown from './MultiSelectDropdown';
+import PortFolioLinks from './Portfolio/PortFolioLinks';
+
+
 const Divheader = 'text-center pb-2';
 
-const InfoSection = `mt-28 h-auto flex flex-col  items-center justify-center lg:w-[33%] mx-4 my-3 border border-purple-700 rounded-3xl py-10 hover:border-neutral-400 `
+const InfoSection = `mt-28 h-auto flex flex-col  items-start justify-around lg:w-[33%] mx-4 my-3 border border-purple-700 rounded-3xl py-10 hover:border-neutral-400`
 
 const linkDivs = `flex items-center gap-x-3 mx-2 text-2xl`
 
@@ -23,6 +26,8 @@ const ClientspersonalInfo = () => {
   const { formData, setFormData } = useGlobalState();
   const [fullProfileImage, setFullProfileImage] = useState(false);
   const PersonalInfoRef = useRef(null)
+  const freeLanceInfoRef = useRef(null)
+  const topRef = useRef(null)
   const toggleProfileImage = () => {
     setFullProfileImage(!fullProfileImage);
     if (fullProfileImage) {
@@ -42,8 +47,17 @@ const ClientspersonalInfo = () => {
   const ScrollToPersonalInfo = ()=>{
     PersonalInfoRef.current.scrollIntoView({behavior: 'smooth'})
   }
+  const ScrollToFreelanceInfo = ()=>{
+    freeLanceInfoRef.current.scrollIntoView({behavior: 'smooth'})
+  }
+  const ScrollToTop = ()=>{
+    topRef.current.scrollIntoView({behavior: 'smooth'})
+  }
+
   return (
-    <div className=" font-josefin">
+    // main div
+    <div className=" font-josefin" ref={topRef}>
+      {/* Profile photo full view */}
       {fullProfileImage && (
         <div className="absolute inset-0 flex items-center justify-center z-30 backdrop-blur-2xl">
           <div className="relative h-auto w-full max-w-screen-md p-4">
@@ -59,15 +73,15 @@ const ClientspersonalInfo = () => {
           </div>
         </div>
       )}
+      {/* All Info Div */}
       <div className='flex flex-col lg:flex-row'>
-       <div className={InfoSection}>
-      Info As Client
-      </div>
-      <div className={InfoSection}>
-        <div onClick={toggleProfileImage}>
+
+      {/* Main Profile */}
+      <div className={`${InfoSection} px-10`}>
+        <div onClick={toggleProfileImage} >
         <ImageSelector />
         </div>
-        <div className="md:text-2xl lg:text-3xl text-2xl font-bold flex gap-2">
+        <div className="md:text-4xl lg:text-5xl text-2xl font-bold flex gap-2">
           {formData.userName? (
             <div>
               <h1>{formData.userName}</h1>
@@ -152,9 +166,16 @@ const ClientspersonalInfo = () => {
       </div>
      <div className={InfoSection}>
         <FreelancerInfo/>
+        <div className="mx-auto" onClick={ScrollToFreelanceInfo}>
+        <ButtonsTwo value={'Edit Freelance Info'}/>
+        </div>
+      </div>
+      {/* Info as Client */}
+      <div className={InfoSection}>
+      Info As Client
       </div>
       </div>
-      <form className="flex flex-col w-[90%] border border-purple-700 rounded-3xl mx-auto py-10 mt-2 px-5 h-auto" ref={PersonalInfoRef}>
+      <div className="flex flex-col w-[90%] border border-purple-700 rounded-3xl mx-auto py-10 mt-2 px-5 h-auto" ref={PersonalInfoRef}>
         <h1 className="text-3xl font-Ubuntu text-neutral-400 text-center mb-10">
           Personal Information
         </h1>
@@ -232,7 +253,7 @@ const ClientspersonalInfo = () => {
         <h1 className='text-center mb-2'>
             Links
           </h1>
-        <div className="flex sm:flex-row flex-col gap-y-8 justify-around lg:w-1/2 w-full mx-auto items-center">
+        <div className="flex sm:flex-row flex-col gap-y-8 justify-around lg:w-1/2 w-full mx-auto items-center mb-10">
           <div className={linkDivs}>
             <LinkedinIcon/>
            <Input Labelvalue={'LinkedIn'}
@@ -255,12 +276,15 @@ const ClientspersonalInfo = () => {
            />
           </div>
         </div>
+        <span onClick={ScrollToFreelanceInfo}>
+        <Buttons value={'Next'}/>
+        </span>
         </div>
         
          
-      </form>
+      </div>
 
-      <form className='border border-purple-700 my-10 w-[90%] mx-auto rounded-3xl h-auto py-10 lg:h-screen flex flex-col'>
+      <div className='border border-purple-700 my-10 w-[90%] mx-auto rounded-3xl h-auto py-10 flex flex-col' ref={freeLanceInfoRef}>
       <div className="gap-10 flex flex-col capitalize text-center">
           <h1 className='text-center my-10 mb-5 text-3xl text-neutral-500 '>
             Info As Freelancer
@@ -292,11 +316,13 @@ const ClientspersonalInfo = () => {
             <MultiSelectDropdown/>
           </div>
           <div className="">
+            <PortFolioLinks/>
           </div>
           </div>
-      </form>
-
-      
+      <span className='mx-auto mt-10' onClick={ScrollToTop}>
+      <Buttons value={'Back to top'}/>
+      </span>
+      </div>
     </div>
   );
 };

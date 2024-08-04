@@ -3,6 +3,9 @@ import { Buttons, ButtonsTwo } from '../../../Buttons';
 import { useGlobalState } from '../GlobalStateProvider';
 import { ImLocation } from 'react-icons/im';
 import StarRating from '../StarRating';
+import ImagePortfolio from '../Portfolio/ImagePortfolio';
+import DisplayProjects from '../Portfolio/DisplayProjects';
+import PortFolioLinks from '../Portfolio/PortFolioLinks';
 
 
 const FreelancerInfo = () => {
@@ -15,29 +18,6 @@ const FreelancerInfo = () => {
   };
 
   const freelancer = {
-    personalInfo: {
-      name: 'John Doe',
-      title: 'Full-Stack Developer',
-      location: 'New York, USA',
-      email: 'john.doe@example.com',
-      phone: '+1 (555) 123-4567',
-      profilePicture: formData.ProfilePicture,
-      bio: 'Experienced developer with a passion for building scalable web applications and working across the full stack.'
-    },
-    portfolio: [
-      {
-        title: 'Project One',
-        description: 'A full-stack web application for managing tasks.',
-        imageUrl: 'path/to/project1.jpg',
-        link: 'https://example.com/project1'
-      },
-      {
-        title: 'Project Two',
-        description: 'A mobile app for tracking fitness activities.',
-        imageUrl: 'path/to/project2.jpg',
-        link: 'https://example.com/project2'
-      }
-    ],
     testimonials: [
       {
         name: 'Client One',
@@ -54,17 +34,8 @@ const FreelancerInfo = () => {
 
   return (
     <>
-      <h1 className='tracking-widest text-3xl'>
-        Info As Freelancer
-      </h1>
-      <div className="mx-auto p-8">
-      <h1>
-        
-      </h1>
+      <div className=" p-8">
       <div className="flex ">
-        {/* <div className="relative w-32 h-32 rounded-full overflow-hidden flex items-center border border-purple-700 hover:scale-110 transition">
-        <img src={freelancer.personalInfo.profilePicture} alt='Add Image' className='mx-auto'/>
-        </div> */}
         <div>
           <h1 className="text-4xl font-bold">
             {
@@ -164,18 +135,15 @@ const FreelancerInfo = () => {
           <>
             {/* Portfolio */}
             <div className="mt-8">
-              <h2 className="text-2xl font-bold">Portfolio</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
-                {freelancer.portfolio.map(project => (
-                  <div key={project.title} className="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <img src={project.imageUrl} alt={project.title} className="w-full h-48 object-cover" />
-                    <div className="p-4">
-                      <h3 className="text-xl font-bold">{project.title}</h3>
-                      <p className="text-gray-700 mt-2">{project.description}</p>
-                      <a href={project.link} className="text-blue-500 mt-4 inline-block">View Project</a>
-                    </div>
-                  </div>
-                ))}
+              <h2 className="text-2xl font-bold">Portfolio </h2>
+              <div className=" border border-purple-700 rounded-3xl flex items-center w-full h-64 relative">
+                  <ImagePortfolio/>
+              </div>
+            </div>
+            <div className="mt-8">
+              <h2 className="text-2xl font-bold">Project Links </h2>
+              <div className=" border border-purple-700 rounded-3xl flex items-center w-full h-64 ">
+              <DisplayProjects/>
               </div>
             </div>
 

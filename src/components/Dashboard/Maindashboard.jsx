@@ -7,7 +7,7 @@ const navItems = [
   { id: 'apply', icon: <Briefcase />, label: 'Apply for Job' },
   { id: 'offer', icon: <Handshake />, label: 'Offer a Job' },
   { id: 'notification', icon: <Bell />, label: 'Notification' },
-  { id: 'menu', icon: <Menu />, label: 'Menu' },
+  { id: 'menu', icon: <Menu />, label: 'Menu'},
 ];
 
 const HeaderdivStyles = `
@@ -29,7 +29,7 @@ const Maindashboard = () => {
   return (
     <>
       <div className='fixed w-full'>
-        <nav className="text-center items-center justify-around flex w-full border-b border-neutral-500 h-16 py-10 px-4 text-neutral-300 backdrop-blur-sm z-30">
+        <nav className="text-center items-center justify-around flex w-full border-b border-neutral-500 h-16 py-10 px-4 text-neutral-300 backdrop-blur-sm z-50">
           {navItems.map((item, index) => (
             <div
               key={item.id}

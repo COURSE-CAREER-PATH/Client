@@ -25,6 +25,8 @@ export const GlobalStateProvider = ({ children }) => {
     Overview: '',
     Profession: '',
     rating: '',
+    Portfolio: '',
+    companyLogo: '',
     
   });
 
