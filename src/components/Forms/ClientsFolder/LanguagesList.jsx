@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useGlobalState } from './GlobalStateProvider';
 
 const LanguagesDropdown = () => {
-  const { formData, setFormData } = useGlobalState();
+  const {  setFormData } = useGlobalState();
 
   const handleInputChange = (name, value) => {
     setFormData((prevFormData) => ({

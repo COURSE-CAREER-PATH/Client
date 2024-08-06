@@ -5,7 +5,6 @@ import { ImLocation } from 'react-icons/im';
 import StarRating from '../StarRating';
 import ImagePortfolio from '../Portfolio/ImagePortfolio';
 import DisplayProjects from '../Portfolio/DisplayProjects';
-import PortFolioLinks from '../Portfolio/PortFolioLinks';
 
 
 const FreelancerInfo = () => {
@@ -54,14 +53,14 @@ const FreelancerInfo = () => {
               </p>
             }
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-neutral-100">
             {formData.Profession? formData.Profession : (
               <b>
                 Profession
               </b>
             )}
           </p>
-          <div className="text-gray-600">
+          <div className="text-neutral-100">
           <b className='flex gap-1 text-xs my-1 md:my-2'>
           <p>
             <ImLocation/>
@@ -77,12 +76,12 @@ const FreelancerInfo = () => {
           </p>
         </b>
             </div>
-          <p className="text-gray-600">{formData.Email? formData.Email : (
+          <p className="text-neutral-100">{formData.Email? formData.Email : (
             <b>
               No Added Email
             </b>
           )}</p>
-          <p className="text-gray-600">{formData.mobileNumber? formData.mobileNumber :(
+          <p className="text-neutral-100">{formData.mobileNumber? formData.mobileNumber :(
             <b>
               No added Mobile Number 
             </b>
@@ -93,7 +92,7 @@ const FreelancerInfo = () => {
       {/* Bio */}
       <div className="mt-8">
         <h2 className="text-2xl font-bold">Deescribe Work History And Profession</h2>
-        <span className="text-gray-700 mt-2">{formData.Overview? formData.Overview : (
+        <span className="text-neutral-100 mt-2">{formData.Overview? formData.Overview : (
           <p>
             No added description
           </p>
@@ -150,13 +149,11 @@ const FreelancerInfo = () => {
             <div className="mt-8">
               <h2 className="text-2xl font-bold">Testimonials</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
-                {freelancer.testimonials.map(testimonial => (
-                  <div key={testimonial.name} className="bg-white rounded-lg shadow-lg p-4">
-                    <p className="text-gray-700">{testimonial.feedback}</p>
-                    <p className="text-gray-800 font-bold mt-2">{testimonial.name}</p>
-                    <p className="text-gray-600">{testimonial.company}</p>
+                  <div className="border border-purple-700 rounded-3xl p-4">
+                    <p className="text-neutral-100"></p>
+                    <p className="text-neutral-100 font-bold mt-2"></p>
+                    <p className="text-neutral-100"></p>
                   </div>
-                ))}
               </div>
             </div>
 

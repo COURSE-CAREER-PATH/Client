@@ -27,7 +27,16 @@ export const GlobalStateProvider = ({ children }) => {
     rating: '',
     Portfolio: '',
     companyLogo: '',
-    
+    companyName: '',
+    companyPosition: '',
+    companySize: '',
+    companyAddress: '',
+    companyDescription: '', 
+    companyLinkedIn: '',
+    companyFacebook: '',
+    companyTwitter: '',
+    companyWebsite: '',
+    companyPhone: '',
   });
 
   return (

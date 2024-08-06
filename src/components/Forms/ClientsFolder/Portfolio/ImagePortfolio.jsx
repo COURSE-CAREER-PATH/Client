@@ -42,7 +42,7 @@ const ImagePortfolio = () => {
         <ImagePlus/>
       </label>
       {selectedImages.length > 0 ? (
-        <div className='grid grid-cols-3 gap-4 h-64 overflow-y-scroll rounded-3xl scrollbar scrollbar-thumb-purple-700 scrollbar-track-purple-300 scrollbar-thumb-rounded-full p-2 '>
+        <div className='grid grid-cols-3 gap-4 h-64 overflow-y-scroll rounded-3xl scrollbar-none py-4 px-2'>
           {selectedImages.map((image, index) => (
             <div key={index} className='relative'>
               <Trash 

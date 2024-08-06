@@ -28,8 +28,8 @@ const Maindashboard = () => {
 
   return (
     <>
-      <div className='fixed w-full'>
-        <nav className="text-center items-center justify-around flex w-full border-b border-neutral-500 h-16 py-10 px-4 text-neutral-300 backdrop-blur-sm z-50">
+      <div className='fixed w-full z-50'>
+        <nav className="text-center items-center justify-around flex w-full border-b border-neutral-500 h-16 py-10 px-4 text-neutral-300 backdrop-blur-sm ">
           {navItems.map((item, index) => (
             <div
               key={item.id}

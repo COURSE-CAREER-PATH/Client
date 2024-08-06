@@ -15,13 +15,13 @@ const FirstPrompt = () => {
     <div>
     <div className='flex flex-col md:flex-row justify-center items-center'>
         <div className={`${DivStyles}`}>
-        <img src={Client} alt=""  className='mb-10 md:mb-5'/>
+        <img src={Client} alt=""  className='mb-10 md:mb-5 bg-neutral-300 rounded-3xl'/>
         <Link to={'/dashboard'}>
             <Buttons value={'I Am a Client'}/>
         </Link>
         </div>
         <div className={`${DivStyles}`}>
-            <img src={Freelancer} alt="" className='mb-10 md:mb-5'/>
+            <img src={Freelancer} alt="" className='mb-10 md:mb-5 bg-neutral-300 rounded-3xl'/>
             <Buttons value={'I Am a Freelancer'}/>
         </div>
     </div>

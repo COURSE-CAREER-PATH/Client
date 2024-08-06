@@ -36,10 +36,14 @@ const ImageSelector = () => {
               src={selectedImage}
               alt="Selected profile"
               className="w-44 h-44 transition active:scale-95 cursor-pointer border border-purple-700"
+              
             />
           ) : (
-            <div className="flex items-center justify-center w-44 h-44 rounded-full border-2 border-purple-700">
-              <CgProfile className="text-purple-600" size={60} />
+            <div className="flex flex-col items-center justify-center w-44 h-44 rounded-full border-2 border-purple-700">
+              <CgProfile className="text-purple-600" size={90} />
+              <p>
+                Profile Photo
+              </p>
             </div>
           )}
           <Label htmlFor="file-input" className="absolute bottom-0 right-0 transform translate-x-1/4 translate-y-1/4  
