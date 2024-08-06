@@ -198,7 +198,7 @@ const ClientspersonalInfo = () => {
            </a>
           </div>
         </div>
-        <div className="mt-10 absolute bottom-5 left-1/3" onClick={ScrollToPersonalInfo}>
+        <div className="mt-10" onClick={ScrollToPersonalInfo}>
         <Buttons value={'Edit profile'}/>
       </div>
       </div>
