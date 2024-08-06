@@ -69,22 +69,24 @@ const Maindashboard = () => {
         ></div>
       </div>
       
+      <div className="overflow-hidden">
       <div 
-        className="flex w-[400%] transition-transform duration-500 ease-in-out overflow-hidden" 
+        className="flex w-[400%] transition-transform duration-500 ease-in-out gap-5" 
         style={{ transform: `translateX(-${navItems.findIndex(item => item.id === activeItem) * 25}%)` }}
       >
-        <div className="w-[100vw]">
+        <div className="w-[100%] mx-auto overflow-hidden">
           <ProfilePage />
         </div>
-        <div className="w-[100vw]">
+        <div className="w-[100%] mx-auto">
           <JopApplicationPage />
         </div>
-        <div className="w-[100vw]">
+        <div className="w-[100%] mx-auto">
           <JobPostingPage />
         </div>
-        <div className="w-[100vw]">
+        <div className="w-[100%] mx-auto">
           <NotificationPage />
         </div>
+      </div>
       </div>
 
       {/* Drawer component */}
