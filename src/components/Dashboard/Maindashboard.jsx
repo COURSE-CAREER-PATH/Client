@@ -5,6 +5,7 @@ import { enablePageScroll, disablePageScroll } from 'scroll-lock';
 import JopApplicationPage from './JopApplicationPage';
 import JobPostingPage from './JobPostingPage';
 import NotificationPage from './NotificationPage';
+import { Buttons, ButtonsTwo } from '../Buttons';
 
 const navItems = [
   { id: 'profile', icon: <User />, label: 'Profile' },
@@ -71,7 +72,7 @@ const Maindashboard = () => {
       
       <div className="overflow-hidden">
       <div 
-        className="flex w-[400%] transition-transform duration-500 ease-in-out gap-5" 
+        className="flex w-[400%] transition-transform duration-500 ease-in-out gap-10" 
         style={{ transform: `translateX(-${navItems.findIndex(item => item.id === activeItem) * 25}%)` }}
       >
         <div className="w-[100%] mx-auto overflow-hidden">
@@ -92,7 +93,7 @@ const Maindashboard = () => {
       {/* Drawer component */}
       <div
         id="drawer-right-example"
-        className={`fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform bg-white w-80 dark:bg-gray-800 ${
+        className={`fixed top-0 right-0 z-40 h-screen p-4 overflow-x-auto transition-transform backdrop-blur-sm border border-purple-700 rounded-l-3xl w-80 dark:bg-gray-800 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
         tabIndex="-1"
@@ -100,9 +101,9 @@ const Maindashboard = () => {
       >
         <h5
           id="drawer-right-label"
-          className="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400"
+          className="inline-flex items-center mb-4 text-base font-semibold text-neutral-200 dark:text-gray-400"
         >
-          Right drawer
+          Menu
         </h5>
         <button
           type="button"
@@ -112,31 +113,9 @@ const Maindashboard = () => {
           <X/>
           <span className="sr-only">Close menu</span>
         </button>
-        <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
-          Supercharge your hiring by taking advantage of our{' '}
-          <a
-            href="#"
-            className="text-blue-600 underline font-medium dark:text-blue-500 hover:no-underline"
-          >
-            limited-time sale
-          </a>{' '}
-          for Flowbite Docs + Job Board. Unlimited access to over 190K
-          top-ranked candidates and the #1 design job board.
-        </p>
-        <div className="grid grid-cols-2 gap-4">
-          <a
-            href="#"
-            className="px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-          >
-            Learn more
-          </a>
-          <a
-            href="#"
-            className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          >
-            Get access
-            <ArrowRight/>
-          </a>
+        <div className="flex absolute bottom-3">
+         <Buttons value={'Log Out'}/>
+         <ButtonsTwo value={'Switch accounts'}/>
         </div>
       </div>
     </>
