@@ -128,17 +128,17 @@ const FreelancerInfo = () => {
           <ButtonsTwo value={'See Less'} />
         )}
       </span>
-
-      <div className="">
-        {seeMore && (
-          <>
-            {/* Portfolio */}
-            <div className="mt-8">
+      <div className="mt-8">
               <h2 className="text-2xl font-bold">Portfolio </h2>
               <div className=" border border-purple-700 rounded-3xl flex items-center w-full h-64 relative">
                   <ImagePortfolio/>
               </div>
             </div>
+
+      <div className="">
+        {seeMore && (
+          <>
+            {/* Portfolio */}
             <div className="mt-8">
               <h2 className="text-2xl font-bold">Project Links </h2>
               <div className=" border border-purple-700 rounded-3xl flex items-center w-full h-64 ">
