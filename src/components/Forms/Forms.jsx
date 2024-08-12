@@ -1,8 +1,3 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Home } from 'lucide-react';
-import { Link } from 'react-router-dom';
-
 const Main = styled.div`
   display: flex;
   flex-direction: column;
@@ -210,32 +205,106 @@ const Paragraph = styled.p`
   margin: 20px 0 30px;
 `;
 
+
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Home } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Auth } from '../config/firebase';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import {useGlobalState } from './ClientsFolder/GlobalStateProvider';
+
+
 function Forms() {
   const [signIn, toggle] = React.useState(true);
+  const [signupEmail, setSignupEmail] = useState('')
+  const [signupPassword, setSignupPassword] = useState('')
+  const [signupPasswordTwo, setSignupPasswordTwo] = useState('')
+  const [loginEmail, setLoginEmail] = useState('')
+  const [loginPassword, setLoginPassword] = useState('')
+  const {formData, setFormData} = useGlobalState()
+
+  const handleInputChange = (name, e) => {
+    setFormData({
+      ...formData,
+      [name]: e.target.value,
+    });
+  };
+
+  
+
+    const createAcc = async(e)=>{
+      e.preventDefault()
+      try {
+        createUserWithEmailAndPassword(Auth, signupEmail, signupPassword=== signupPasswordTwo? signupPasswordTwo :alert('passwords dont match'),
+         )
+         console.log('new account created');
+         
+      } catch (err) {
+        console.error(err);
+        
+      }
+      setSignupEmail('')
+      setSignupPassword('')
+      setSignupPasswordTwo('')
+    }
+
+    const logintoAcc = async(e)=>{
+      e.preventDefault()
+      try {
+        signInWithEmailAndPassword(Auth, loginEmail, loginPassword)
+        console.log('User logged in');
+        
+      } catch (err) {
+        console.log(err); 
+      }
+      setLoginEmail('')
+      setLoginPassword('')
+    }
+
+
   return (
     <div className="block">
     <Main>
       <Container>
         <SignUpContainer signinIn={signIn}>
-          <Form className='text-neutral-600'>
+          <Form className='text-neutral-600' onSubmit={createAcc}>
             <Title className='text-3xl text-purple-700 py-3 font-Ubuntu'>Create Account</Title>
-            <Input type='text' placeholder='Name' required/>
-            <Input type='email' placeholder='Email' required/>
-            <Input type='password' placeholder='Password' required />
-            <Input type='password' placeholder='Re enter Password' required />
+
+            <Input type='text' placeholder='User Name' required 
+            value={formData.userName}
+            onChange={(e) => handleInputChange('userName', e)}            />
+            <Input type='email' placeholder='Email' required
+            value={signupEmail}
+            onChange={(e)=>setSignupEmail(e.target.value)}
+            />
+            <Input type='password' placeholder='Password' required 
+            value={signupPassword}
+            onChange={(e)=>setSignupPassword(e.target.value)}
+            />
+            <Input type='password' placeholder='Re enter Password' required 
+            value={signupPasswordTwo}
+            onChange={(e)=>setSignupPasswordTwo(e.target.value)}
+            />
             <Button>Sign Up</Button>
           </Form>
         </SignUpContainer>
 
         <SignInContainer signinIn={signIn} className='text-neutral-600'>
-          <Form>
+          <Form onSubmit={logintoAcc}>
             <Title  className='text-3xl text-purple-700 py-3 font-Ubuntu'>Log In</Title>
-            <Input type='email' placeholder='Email' required/>
-            <Input type='password' placeholder='Password' required/>
-            <Anchor href='#'>Forgot your password?</Anchor>
+            <Input type='email' placeholder='Email' required
+            value={loginEmail}
+            onChange={(e)=>setLoginEmail(e.target.value)}
+            />
+            <Input type='password' placeholder='Password' required
+            value={loginPassword}
+            onChange={(e)=>setLoginPassword(e.target.value)}
+            />
             <Link to={'/firstPrompt'}>
-            <Button>Log In</Button>
+            Forgot your password?
             </Link>
+            <Button>Log In</Button>
           </Form>
         </SignInContainer>
 

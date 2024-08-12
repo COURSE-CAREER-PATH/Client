@@ -107,9 +107,9 @@ const FreelancerInfo = () => {
       Skills.map((skill, index) => (
         <div key={index} className="mr-4 mb-2">
           <div className="rounded-full px-4 py-2 border border-purple-700 text-neutral-300  cursor-pointer">
-            <div className="">
+            <div className="" key={index}>
             {skill.label}
-            <StarRating/>
+            <StarRating totalStars={5} index={index}/>
             </div>
           </div>
         </div>

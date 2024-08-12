@@ -46,7 +46,7 @@ const ClientspersonalInfo = () => {
     };
   }, []);
 
-  const { formData, setFormData } = useGlobalState();
+  const { formData, setFormData,  saveDataToFirestore, loadDataFromFirestore } = useGlobalState();
   const [fullProfileImage, setFullProfileImage] = useState(false);
   const PersonalInfoRef = useRef(null)
   const freeLanceInfoRef = useRef(null)
@@ -68,6 +68,7 @@ const ClientspersonalInfo = () => {
     });
   };
 
+
   const ScrollToPersonalInfo = ()=>{
     PersonalInfoRef.current.scrollIntoView({behavior: 'smooth'})
   }
@@ -79,6 +80,10 @@ const ClientspersonalInfo = () => {
   }
   const ScrollToClientInfo = ()=>{
     ClientInfoRef.current.scrollIntoView({behavior: 'smooth'})
+  }
+    const finishUp = ()=>{
+    saveDataToFirestore()
+    ScrollToTop()
   }
 
   return (
@@ -482,8 +487,8 @@ const ClientspersonalInfo = () => {
           <div onClick={ScrollToFreelanceInfo}>
         <Buttons value={'Back'}/>
         </div>
-        <div className='' onClick={ScrollToTop}>
-      <Buttons value={'Back to top'}/>
+        <div className='' onClick={finishUp}>
+      <ButtonsTwo value={'Finish and submit'}/>
       </div>
         </div>
         </div>

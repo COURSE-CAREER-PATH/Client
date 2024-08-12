@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { User, Briefcase, Bell, Menu, Handshake, ArrowRight, X } from 'lucide-react';
+import { User, Briefcase, Bell, Menu, Handshake, X, Link } from 'lucide-react';
 import ProfilePage from './ProfilePage';
 import { enablePageScroll, disablePageScroll } from 'scroll-lock';
 import JopApplicationPage from './JopApplicationPage';
 import JobPostingPage from './JobPostingPage';
 import NotificationPage from './NotificationPage';
 import { Buttons, ButtonsTwo } from '../Buttons';
+import { Auth } from '../config/firebase';
+import { signOut } from 'firebase/auth';
 
 const navItems = [
   { id: 'profile', icon: <User />, label: 'Profile' },
@@ -22,6 +24,17 @@ const HeaderdivStyles = `
 const H1styles = `
   hidden md:flex
 `;
+
+const logOut = async()=>{
+  try {
+    signOut(Auth)
+    console.log('user logged out');
+    
+  } catch (err) {
+    console.error(err);
+    
+  }
+}
 
 const Maindashboard = () => {
   const [activeItem, setActiveItem] = useState('profile');
@@ -114,7 +127,9 @@ const Maindashboard = () => {
           <span className="sr-only">Close menu</span>
         </button>
         <div className="flex absolute bottom-3">
+          <span onClick={logOut}>
          <Buttons value={'Log Out'}/>
+          </span>
          <ButtonsTwo value={'Switch accounts'}/>
         </div>
       </div>

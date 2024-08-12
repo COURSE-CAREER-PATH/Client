@@ -10,13 +10,11 @@ const MultiSelectDropdown = () => {
     const handleChange = (selected) => {
         const updatedOptions = selected || [];
         setSelectedOptions(updatedOptions);
-        handleInputChange('Jobs', updatedOptions);
-    };
-
-    const handleInputChange = (name, value) => {
+        
+        // Update the array in formData
         setFormData((prevFormData) => ({
             ...prevFormData,
-            [name]: value,
+            Jobs: updatedOptions, // Store the selected options array in formData
         }));
     };
 
@@ -35,7 +33,6 @@ const MultiSelectDropdown = () => {
                 options={availableOptions} // Use the filtered options array
                 placeholder="Select options..."
             />
-           
         </div>
     );
 };
