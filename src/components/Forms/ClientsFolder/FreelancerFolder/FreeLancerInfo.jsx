@@ -35,11 +35,11 @@ const FreelancerInfo = () => {
     <>
       <div className=" p-8">
       <div className="flex ">
-        <div>
-          <h1 className="text-4xl font-bold">
+        <div className=''>
+          <h1 className=" font-bold text-2xl md:text-4xl">
             {
               formData.firstName && formData.lastName && formData.middleName? (
-                <p className='flex gap-3'>
+                <p className='flex gap-3 lg:flex-col lg:gap-1'>
                   <b>
                     {formData.firstName}
                   </b>

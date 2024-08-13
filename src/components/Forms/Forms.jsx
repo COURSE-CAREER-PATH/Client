@@ -209,11 +209,12 @@ const Paragraph = styled.p`
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Home } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Auth } from '../config/firebase';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup } from 'firebase/auth';
 import {useGlobalState } from './ClientsFolder/GlobalStateProvider';
-
+import facebookIcon from '../../assets/icons/facebook.png'
+import googleIcon from '../../assets/icons/google.png'
 
 function Forms() {
   const [signIn, toggle] = React.useState(true);
@@ -223,7 +224,7 @@ function Forms() {
   const [loginEmail, setLoginEmail] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
   const {formData, setFormData} = useGlobalState()
-
+  const navigate = useNavigate()
   const handleInputChange = (name, e) => {
     setFormData({
       ...formData,
@@ -231,15 +232,47 @@ function Forms() {
     });
   };
 
+  const googleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(Auth, provider);
+      const user = result.user;
+      
+      // Extract the display name from the user object
+      const displayName = user.displayName;
   
-
+      // Update the formData with the Google display name
+      setFormData((prevData) => ({
+        ...prevData,
+        userName: displayName || '', // Fallback to an empty string if displayName is null
+      }));
+  
+      console.log('Google Sign-In successful');
+      navigate('/dashboard');
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+  
+    const facebookSignIn = async()=>{
+      const provider = new FacebookAuthProvider()
+      try {
+        await signInWithPopup(Auth, provider)
+        console.log('facebook sign-in succesful');
+        navigate('/dashboard')
+        
+      } catch (err) {
+        console.error(err.message);
+        
+      }
+    } 
     const createAcc = async(e)=>{
       e.preventDefault()
       try {
         createUserWithEmailAndPassword(Auth, signupEmail, signupPassword=== signupPasswordTwo? signupPasswordTwo :alert('passwords dont match'),
          )
          console.log('new account created');
-         
+         navigate('/dashboard')
       } catch (err) {
         console.error(err);
         
@@ -254,7 +287,7 @@ function Forms() {
       try {
         signInWithEmailAndPassword(Auth, loginEmail, loginPassword)
         console.log('User logged in');
-        
+        navigate('/dashboard')
       } catch (err) {
         console.log(err); 
       }
@@ -301,7 +334,7 @@ function Forms() {
             value={loginPassword}
             onChange={(e)=>setLoginPassword(e.target.value)}
             />
-            <Link to={'/firstPrompt'}>
+            <Link to={'/dashboard'}>
             Forgot your password?
             </Link>
             <Button>Log In</Button>
@@ -332,9 +365,21 @@ function Forms() {
           </Overlay>
         </OverlayContainer>
       </Container>
+      <p className='mt-3'>
+        Or use other sign in options
+      </p>
+        <div className="flex gap-x-5 my-5 flex-col gap-y-3 md:flex-row">
+          <div className= "py-2 px-4 rounded-2xl border border-purple-700 hover:border-neutral-500 transition active:translate-y-1 flex items-center gap-x-2 cursor-pointer" onClick={googleSignIn}>
+            <img src={googleIcon} alt="googleIcon" className='w-8'/>
+            Continue with Google</div>
+          
+          <div className= "py-2 px-4 rounded-2xl border border-purple-700 hover:border-neutral-500 transition active:translate-y-1 flex items-center gap-x-2 cursor-pointer" onClick={facebookSignIn}>
+            <img src={facebookIcon} alt="googleIcon" className='w-8'/>
+            Continue with Facebook</div>
+        </div>
       <Link to={'/'}>
-    <div className="mt-6  flex gap-3">
-      <p className='text-neutral-200 hover:text-neutral-500 transition'>CLick to go return home</p>
+    <div className="flex gap-3">
+      <p className='text-neutral-200 hover:text-neutral-500 transition'>return home</p>
       <Home className='text-purple-500 transition hover:text-purple-700'/>
     </div>
     </Link>

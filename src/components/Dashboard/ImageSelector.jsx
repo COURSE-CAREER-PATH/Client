@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Compressor from 'compressorjs';
 import styled from 'styled-components';
 import { FaCamera } from 'react-icons/fa';
 import { CgProfile } from 'react-icons/cg';
@@ -8,22 +9,33 @@ const ImageSelector = () => {
   const { formData, setFormData } = useGlobalState();
   const [selectedImage, setSelectedImage] = useState(null);
 
-
+  useEffect(() => {
+    if (formData.ProfilePicture) {
+      setSelectedImage(formData.ProfilePicture);
+    }
+  }, [formData.ProfilePicture]);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const imageDataUrl = reader.result;
-        setSelectedImage(imageDataUrl);
-        // Update the global state with the selected image
-        setFormData({
-          ...formData,
-          ProfilePicture: imageDataUrl,
-        });
-      };
-      reader.readAsDataURL(file);
+      new Compressor(file, {
+        quality: 0.6, // Adjust the quality as needed (0.6 = 60% quality)
+        success: (compressedFile) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const imageDataUrl = reader.result;
+            setSelectedImage(imageDataUrl);
+            setFormData({
+              ...formData,
+              ProfilePicture: imageDataUrl,
+            });
+          };
+          reader.readAsDataURL(compressedFile);
+        },
+        error(err) {
+          console.error("Image compression failed:", err.message);
+        },
+      });
     }
   };
 
@@ -36,20 +48,18 @@ const ImageSelector = () => {
               src={selectedImage}
               alt="Selected profile"
               className="w-44 h-44 transition active:scale-95 cursor-pointer border border-purple-700"
-              
             />
           ) : (
             <div className="flex flex-col items-center justify-center w-44 h-44 rounded-full border-2 border-purple-700">
               <CgProfile className="text-purple-600" size={90} />
-              <p>
-                Profile Photo
-              </p>
+              <p>Profile Photo</p>
             </div>
           )}
-          <Label htmlFor="file-input" className="absolute bottom-0 right-0 transform translate-x-1/4 translate-y-1/4  
-          transition active:scale-125 cursor-pointer
-          ">
-            <FaCamera size={30} className=''/>
+          <Label
+            htmlFor="file-input"
+            className="absolute bottom-0 right-0 transform translate-x-1/4 translate-y-1/4 transition active:scale-125 cursor-pointer"
+          >
+            <FaCamera size={30} className="" />
           </Label>
         </div>
         <Input id="file-input" type="file" accept="image/*" onChange={handleImageChange} />

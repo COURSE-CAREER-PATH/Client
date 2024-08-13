@@ -22,8 +22,10 @@ const FirstPrompt = () => {
         </div>
         <div className={`${DivStyles}`}>
             <img src={Freelancer} alt="" className='mb-10 md:mb-5 bg-neutral-300 rounded-3xl'/>
-            <Buttons value={'I Am a Freelancer'}/>
-        </div>
+            <Link to={'/dashboard'}>
+            <ButtonsTwo value={'I Am a Freelancer'}/>
+        </Link>
+       </div>
     </div>
     <Link to={'/login'} className='text-center'>
             <Buttons value={'Go back'}/>

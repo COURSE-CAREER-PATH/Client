@@ -63,16 +63,6 @@ function App() {
               </>
             }
           />
-         
-         
-          <Route
-            path="/info"
-            element={
-              <>
-                <ClientspersonalInfo/>
-              </>
-            }
-          />
           <Route
             path="/dashboard"
             element={

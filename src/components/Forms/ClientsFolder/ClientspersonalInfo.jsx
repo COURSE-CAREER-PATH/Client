@@ -82,7 +82,6 @@ const ClientspersonalInfo = () => {
     ClientInfoRef.current.scrollIntoView({behavior: 'smooth'})
   }
     const finishUp = ()=>{
-    saveDataToFirestore()
     ScrollToTop()
   }
 
@@ -91,16 +90,16 @@ const ClientspersonalInfo = () => {
     <div className=" font-josefin" ref={divRef}>
       {/* Profile photo full view */}
       {fullProfileImage && (
-        <div className="absolute inset-0 flex items-center justify-center z-30 backdrop-blur-2xl">
-          <div className="relative h-auto w-full max-w-screen-md p-4">
+        <div className="absolute inset-0 flex items-center justify-center z-30 backdrop-blur-2xl w-[25%]">
+          <div className="absolute h-auto w-full max-w-screen-md p-4 top-24">
             <button onClick={toggleProfileImage} className="absolute top-2 right-2 text-white  flex flex-col gap-8">
               <X className='transform active:rotate-180 transition duration-500 ease-in-out'/>
-              <a href={formData.ProfilePicture} download={formData.ProfilePicture} className='transform active:animate-bounce transition duration-500 ease-in-out'>
+              <a href={formData.ProfilePicture} download='profileimage.jpg' className='transform active:animate-bounce transition duration-500 ease-in-out'>
               <DownloadIcon/>
               </a>
             </button>
             <div className="flex items-center justify-center ">
-              <img src={formData.ProfilePicture} alt="No Profile Photo" className="max-h-[90dvh] w-[90%] rounded-3xl border border-purple-700" />
+              <img src={formData.ProfilePicture} alt="No Profile Photo" className="max-h-[80dvh] w-[90%] rounded-3xl border border-purple-700 object-cover" />
             </div>
           </div>
         </div>

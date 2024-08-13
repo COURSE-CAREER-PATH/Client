@@ -11,10 +11,13 @@ const MultiSelectDropdown = () => {
         const updatedOptions = selected || [];
         setSelectedOptions(updatedOptions);
         
-        // Update the array in formData
+        // Update the array in formData with the selected options in the format [{ label: '', value: '' }]
         setFormData((prevFormData) => ({
             ...prevFormData,
-            Jobs: updatedOptions, // Store the selected options array in formData
+            Jobs: updatedOptions.map(option => ({
+                label: option.label,
+                value: option.value
+            })),
         }));
     };
 
