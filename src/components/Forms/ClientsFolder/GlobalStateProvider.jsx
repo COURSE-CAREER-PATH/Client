@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { doc, setDoc, onSnapshot } from "firebase/firestore";
+import { doc, setDoc, onSnapshot, updateDoc } from "firebase/firestore";
 import { dataBase } from '../../config/firebase';
 import { getAuth } from 'firebase/auth';
 
@@ -7,12 +7,14 @@ const GlobalStateContext = createContext();
 
 export const GlobalStateProvider = ({ children }) => {
   const [formData, setFormData] = useState({
+    uid: '',
     userName: '',
     firstName: '',
     middleName: '',
     lastName: '',
     mobileNumber: '',
     aditionalAddress: '',
+    Email: '',
     zipCode: '',
     Country: '',
     State: '',
@@ -40,23 +42,22 @@ export const GlobalStateProvider = ({ children }) => {
     companyPhone: '',
   });
 
-  const auth = getAuth(); // Get the Firebase Auth instance
+  const [loading, setLoading] = useState(true);
+  const auth = getAuth();
   const [uid, setUid] = useState(null);
 
   useEffect(() => {
-    // Listen to auth state changes
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
         setUid(user.uid);
       } else {
-        setUid(null); // User is signed out
-      }
+        setUid(null); 
+      }      
     });
 
-    return () => unsubscribe(); // Clean up the listener on unmount
+    return () => unsubscribe();
   }, [auth]);
 
-  // Function to save formData to Firestore
   const saveDataToFirestore = async () => {
     try {
       if (!uid) {
@@ -71,9 +72,9 @@ export const GlobalStateProvider = ({ children }) => {
     }
   };
 
-  // Function to retrieve data from Firestore
   useEffect(() => {
     if (uid) {
+      setLoading(true);
       const docRef = doc(dataBase, "userInfo", uid);
 
       const unsubscribe = onSnapshot(docRef, (docSnap) => {
@@ -83,15 +84,33 @@ export const GlobalStateProvider = ({ children }) => {
         } else {
           console.log("No such document!");
         }
+        setLoading(false);
       });
 
-      // Clean up the listener when the component unmounts
-      return () => unsubscribe();
+      return () => {
+        unsubscribe();
+        setLoading(false);
+      };
     }
   }, [uid]);
 
+  const updateFormData = async () => {
+    if (!uid) {
+      console.error("Error: User must be logged in to update data.");
+      return;
+    }
+
+    try {
+      const userDocRef = doc(dataBase, "userInfo", uid); 
+      await updateDoc(userDocRef, formData);
+      console.log("Document successfully updated!");
+    } catch (error) {
+      console.error("Error updating document: ", error);
+    }
+  };
+
   return (
-    <GlobalStateContext.Provider value={{ formData, setFormData, saveDataToFirestore }}>
+    <GlobalStateContext.Provider value={{ formData, setFormData, saveDataToFirestore, updateFormData, loading }}>
       {children}
     </GlobalStateContext.Provider>
   );

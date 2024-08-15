@@ -16,21 +16,7 @@ const FreelancerInfo = () => {
     setSeeMore(!seeMore);
   };
 
-  const freelancer = {
-    testimonials: [
-      {
-        name: 'Client One',
-        feedback: 'John was amazing to work with. He delivered the project on time and exceeded our expectations.',
-        company: 'Company One'
-      },
-      {
-        name: 'Client Two',
-        feedback: 'John’s expertise in full-stack development is unparalleled. Highly recommend!',
-        company: 'Company Two'
-      }
-    ],
-  };
-
+ 
   return (
     <>
       <div className=" p-8">

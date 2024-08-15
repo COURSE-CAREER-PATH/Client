@@ -206,25 +206,44 @@ const Paragraph = styled.p`
 `;
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Home } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+
+import { useGlobalState } from './ClientsFolder/GlobalStateProvider';
+import facebookIcon from '../../assets/icons/facebook.png';
+import googleIcon from '../../assets/icons/google.png';
 import { Auth } from '../config/firebase';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup } from 'firebase/auth';
-import {useGlobalState } from './ClientsFolder/GlobalStateProvider';
-import facebookIcon from '../../assets/icons/facebook.png'
-import googleIcon from '../../assets/icons/google.png'
 
 function Forms() {
   const [signIn, toggle] = React.useState(true);
-  const [signupEmail, setSignupEmail] = useState('')
-  const [signupPassword, setSignupPassword] = useState('')
-  const [signupPasswordTwo, setSignupPasswordTwo] = useState('')
-  const [loginEmail, setLoginEmail] = useState('')
-  const [loginPassword, setLoginPassword] = useState('')
-  const {formData, setFormData} = useGlobalState()
-  const navigate = useNavigate()
+  const [signupEmail, setSignupEmail] = useState('');
+  const [signupPassword, setSignupPassword] = useState('');
+  const [signupPasswordTwo, setSignupPasswordTwo] = useState('');
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const { formData, setFormData, saveDataToFirestore, updateFormData } = useGlobalState();
+  const navigate = useNavigate();
+
+  // Use useEffect to listen for auth state changes and update formData.Email
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(Auth, (user) => {
+      if (user) {
+        // User is signed in, update formData.Email with user's email
+        setFormData((prevState) => ({
+          ...prevState,
+          Email: user.email,
+        }));
+        console.log('User email set in formData:', user.email);
+      }
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, [setFormData]);
+
   const handleInputChange = (name, e) => {
     setFormData({
       ...formData,
@@ -237,153 +256,165 @@ function Forms() {
     try {
       const result = await signInWithPopup(Auth, provider);
       const user = result.user;
-      
-      // Extract the display name from the user object
       const displayName = user.displayName;
-  
-      // Update the formData with the Google display name
       setFormData((prevData) => ({
         ...prevData,
-        userName: displayName || '', // Fallback to an empty string if displayName is null
+        userName: displayName || '',
       }));
-  
       console.log('Google Sign-In successful');
+      navigate('/dashboard');
+      updateFormData();
+      saveDataToFirestore();
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  const facebookSignIn = async () => {
+    const provider = new FacebookAuthProvider();
+    try {
+      await signInWithPopup(Auth, provider);
+      console.log('Facebook Sign-In successful');
       navigate('/dashboard');
     } catch (err) {
       console.error(err.message);
     }
   };
-  
-    const facebookSignIn = async()=>{
-      const provider = new FacebookAuthProvider()
-      try {
-        await signInWithPopup(Auth, provider)
-        console.log('facebook sign-in succesful');
-        navigate('/dashboard')
-        
-      } catch (err) {
-        console.error(err.message);
-        
-      }
-    } 
-    const createAcc = async(e)=>{
-      e.preventDefault()
-      try {
-        createUserWithEmailAndPassword(Auth, signupEmail, signupPassword=== signupPasswordTwo? signupPasswordTwo :alert('passwords dont match'),
-         )
-         console.log('new account created');
-         navigate('/dashboard')
-      } catch (err) {
-        console.error(err);
-        
-      }
-      setSignupEmail('')
-      setSignupPassword('')
-      setSignupPasswordTwo('')
-    }
 
-    const logintoAcc = async(e)=>{
-      e.preventDefault()
-      try {
-        signInWithEmailAndPassword(Auth, loginEmail, loginPassword)
-        console.log('User logged in');
-        navigate('/dashboard')
-      } catch (err) {
-        console.log(err); 
-      }
-      setLoginEmail('')
-      setLoginPassword('')
+  const createAcc = async (e) => {
+    e.preventDefault();
+    try {
+      await createUserWithEmailAndPassword(
+        Auth,
+        signupEmail,
+        signupPassword === signupPasswordTwo ? signupPasswordTwo : alert('Passwords do not match')
+      );
+      console.log('New account created');
+      navigate('/dashboard');
+    } catch (err) {
+      console.error(err);
     }
+    setSignupEmail('');
+    setSignupPassword('');
+    setSignupPasswordTwo('');
+  };
 
+  const logintoAcc = async (e) => {
+    e.preventDefault();
+    try {
+      await signInWithEmailAndPassword(Auth, loginEmail, loginPassword);
+      console.log('User logged in');
+      navigate('/dashboard');
+    } catch (err) {
+      console.log(err);
+    }
+    setLoginEmail('');
+    setLoginPassword('');
+  };
 
   return (
     <div className="block">
-    <Main>
-      <Container>
-        <SignUpContainer signinIn={signIn}>
-          <Form className='text-neutral-600' onSubmit={createAcc}>
-            <Title className='text-3xl text-purple-700 py-3 font-Ubuntu'>Create Account</Title>
+      <Main>
+        <Container>
+          <SignUpContainer signinIn={signIn}>
+            <Form className="text-neutral-600" onSubmit={createAcc}>
+              <Title className="text-3xl text-purple-700 py-3 font-Ubuntu">Create Account</Title>
 
-            <Input type='text' placeholder='User Name' required 
-            value={formData.userName}
-            onChange={(e) => handleInputChange('userName', e)}            />
-            <Input type='email' placeholder='Email' required
-            value={signupEmail}
-            onChange={(e)=>setSignupEmail(e.target.value)}
-            />
-            <Input type='password' placeholder='Password' required 
-            value={signupPassword}
-            onChange={(e)=>setSignupPassword(e.target.value)}
-            />
-            <Input type='password' placeholder='Re enter Password' required 
-            value={signupPasswordTwo}
-            onChange={(e)=>setSignupPasswordTwo(e.target.value)}
-            />
-            <Button>Sign Up</Button>
-          </Form>
-        </SignUpContainer>
+              <Input
+                type="text"
+                placeholder="User Name"
+                required
+                value={formData.userName}
+                onChange={(e) => handleInputChange('userName', e)}
+              />
+              <Input
+                type="email"
+                placeholder="Email"
+                required
+                value={signupEmail}
+                onChange={(e) => setSignupEmail(e.target.value)}
+              />
+              <Input
+                type="password"
+                placeholder="Password"
+                required
+                value={signupPassword}
+                onChange={(e) => setSignupPassword(e.target.value)}
+              />
+              <Input
+                type="password"
+                placeholder="Re enter Password"
+                required
+                value={signupPasswordTwo}
+                onChange={(e) => setSignupPasswordTwo(e.target.value)}
+              />
+              <Button>Sign Up</Button>
+            </Form>
+          </SignUpContainer>
 
-        <SignInContainer signinIn={signIn} className='text-neutral-600'>
-          <Form onSubmit={logintoAcc}>
-            <Title  className='text-3xl text-purple-700 py-3 font-Ubuntu'>Log In</Title>
-            <Input type='email' placeholder='Email' required
-            value={loginEmail}
-            onChange={(e)=>setLoginEmail(e.target.value)}
-            />
-            <Input type='password' placeholder='Password' required
-            value={loginPassword}
-            onChange={(e)=>setLoginPassword(e.target.value)}
-            />
-            <Link to={'/dashboard'}>
-            Forgot your password?
-            </Link>
-            <Button>Log In</Button>
-          </Form>
-        </SignInContainer>
+          <SignInContainer signinIn={signIn} className="text-neutral-600">
+            <Form onSubmit={logintoAcc}>
+              <Title className="text-3xl text-purple-700 py-3 font-Ubuntu">Log In</Title>
+              <Input
+                type="email"
+                placeholder="Email"
+                required
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
+              />
+              <Input
+                type="password"
+                placeholder="Password"
+                required
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+              />
+              <Link to={'/dashboard'}>Forgot your password?</Link>
+              <Button>Log In</Button>
+            </Form>
+          </SignInContainer>
 
-        <OverlayContainer signinIn={signIn}>
-          <Overlay signinIn={signIn}>
-            <LeftOverlayPanel signinIn={signIn}>
-              <Title  className='text-3xl text-neutral-200 py-3 font-Ubuntu'>Welcome Back!</Title>
-              <Paragraph>
-                To Stay up to date with our daily updates and more please Log in
-              </Paragraph>
-              <SignInGhostButton onClick={() => toggle(true)}>
-                Log In
-              </SignInGhostButton>
-            </LeftOverlayPanel>
+          <OverlayContainer signinIn={signIn}>
+            <Overlay signinIn={signIn}>
+              <LeftOverlayPanel signinIn={signIn}>
+                <Title className="text-3xl text-neutral-200 py-3 font-Ubuntu">Welcome Back!</Title>
+                <Paragraph>To Stay up to date with our daily updates and more please Log in</Paragraph>
+                <SignInGhostButton onClick={() => toggle(true)}>Log In</SignInGhostButton>
+              </LeftOverlayPanel>
 
-            <RightOverlayPanel signinIn={signIn}>
-              <Title className='text-3xl text-neutral-200 py-3 font-Ubuntu'>Welcome</Title>
-              <Paragraph>
-                Enter your details To begin your adventure with us.
-              </Paragraph>
-              <SignUpGhostButton onClick={() => toggle(false)}>
-                Sign Up
-              </SignUpGhostButton>
-            </RightOverlayPanel>
-          </Overlay>
-        </OverlayContainer>
-      </Container>
-      <p className='mt-3'>
-        Or use other sign in options
-      </p>
+              <RightOverlayPanel signinIn={signIn}>
+                <Title className="text-3xl text-neutral-200 py-3 font-Ubuntu">Welcome</Title>
+                <Paragraph>Enter your details To begin your adventure with us.</Paragraph>
+                <SignUpGhostButton onClick={() => toggle(false)}>Sign Up</SignUpGhostButton>
+              </RightOverlayPanel>
+            </Overlay>
+          </OverlayContainer>
+        </Container>
+        <p className="mt-3">Or use other sign in options</p>
         <div className="flex gap-x-5 my-5 flex-col gap-y-3 md:flex-row">
-          <div className= "py-2 px-4 rounded-2xl border border-purple-700 hover:border-neutral-500 transition active:translate-y-1 flex items-center gap-x-2 cursor-pointer" onClick={googleSignIn}>
-            <img src={googleIcon} alt="googleIcon" className='w-8'/>
-            Continue with Google</div>
-          
-          <div className= "py-2 px-4 rounded-2xl border border-purple-700 hover:border-neutral-500 transition active:translate-y-1 flex items-center gap-x-2 cursor-pointer" onClick={facebookSignIn}>
-            <img src={facebookIcon} alt="googleIcon" className='w-8'/>
-            Continue with Facebook</div>
+          <div
+            className="py-2 px-4 rounded-2xl border border-purple-700 hover:border-neutral-500 transition active:translate-y-1 flex items-center gap-x-2 cursor-pointer"
+            onClick={googleSignIn}
+          >
+            <img src={googleIcon} alt="googleIcon" className="w-8" />
+            Continue with Google
+          </div>
+
+          <div
+            className="py-2 px-4 rounded-2xl border border-purple-700 hover:border-neutral-500 transition active:translate-y-1 flex items-center gap-x-2 cursor-pointer"
+            onClick={facebookSignIn}
+          >
+            <img src={facebookIcon} alt="googleIcon" className="w-8" />
+            Continue with Facebook
+          </div>
         </div>
-      <Link to={'/'}>
-    <div className="flex gap-3">
-      <p className='text-neutral-200 hover:text-neutral-500 transition'>return home</p>
-      <Home className='text-purple-500 transition hover:text-purple-700'/>
-    </div>
-    </Link>
-    </Main>
+        <Link to={'/'}>
+          <div className="flex gap-3">
+            <p className="text-neutral-200 hover:text-neutral-500 transition">return home</p>
+            <Home className="text-purple-500 transition hover:text-purple-700" />
+          </div>
+        </Link>
+      </Main>
     </div>
   );
 }

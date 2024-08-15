@@ -6,7 +6,7 @@ import ImageSelector from '../../Dashboard/ImageSelector';
 import { useGlobalState } from './GlobalStateProvider';
 import { ImLocation } from 'react-icons/im';
 import LanguagesList from './LanguagesList';
-import { DownloadIcon, LinkedinIcon } from 'lucide-react';
+import { DownloadIcon, LinkedinIcon, Trash } from 'lucide-react';
 import { FaFacebook, FaPhoneAlt } from 'react-icons/fa';
 import { BsTwitterX } from 'react-icons/bs';
 import { X } from 'lucide-react';
@@ -46,7 +46,7 @@ const ClientspersonalInfo = () => {
     };
   }, []);
 
-  const { formData, setFormData,  saveDataToFirestore, loadDataFromFirestore } = useGlobalState();
+  const { formData, setFormData,  saveDataToFirestore, updateFormData } = useGlobalState();
   const [fullProfileImage, setFullProfileImage] = useState(false);
   const PersonalInfoRef = useRef(null)
   const freeLanceInfoRef = useRef(null)
@@ -82,12 +82,25 @@ const ClientspersonalInfo = () => {
     ClientInfoRef.current.scrollIntoView({behavior: 'smooth'})
   }
     const finishUp = ()=>{
+      updateFormData()
+      saveDataToFirestore()
     ScrollToTop()
   }
+  const saveProfile=()=>{
+    updateFormData()
+    saveDataToFirestore()
+    ScrollToFreelanceInfo()
+  }
+  const saveFreelanceInfo= ()=>{
+    updateFormData()
+    saveDataToFirestore()
+    ScrollToClientInfo()
+  }
+
 
   return (
     // main div
-    <div className=" font-josefin" ref={divRef}>
+    <div className=" font-josefin h-auto " ref={divRef} >
       {/* Profile photo full view */}
       {fullProfileImage && (
         <div className="absolute inset-0 flex items-center justify-center z-30 backdrop-blur-2xl w-[25%]">
@@ -97,6 +110,9 @@ const ClientspersonalInfo = () => {
               <a href={formData.ProfilePicture} download='profileimage.jpg' className='transform active:animate-bounce transition duration-500 ease-in-out'>
               <DownloadIcon/>
               </a>
+              <span>
+                <Trash/>
+              </span>
             </button>
             <div className="flex items-center justify-center ">
               <img src={formData.ProfilePicture} alt="No Profile Photo" className="max-h-[80dvh] w-[90%] rounded-3xl border border-purple-700 object-cover" />
@@ -105,7 +121,7 @@ const ClientspersonalInfo = () => {
         </div>
       )}
       {/* All Info Div */}
-      <div className='flex flex-col lg:flex-row' ref={topRef}>
+      <div className='flex flex-col lg:flex-row' ref={topRef} >
 
       {/* Main Profile */}
       <div className={`${InfoSection} px-10 relative`}>
@@ -329,8 +345,8 @@ const ClientspersonalInfo = () => {
         <div className='' onClick={ScrollToTop}>
       <Buttons value={'Back to top'}/>
       </div>
-        <div onClick={ScrollToFreelanceInfo}>
-        <Buttons value={'Next'}/>
+        <div onClick={saveProfile}>
+        <Buttons value={'Save and continue'}/>
         </div>
         </div>
       </div>
@@ -378,8 +394,8 @@ const ClientspersonalInfo = () => {
       <div className='mx-auto mt-10' onClick={ScrollToTop}>
       <Buttons value={'Back to top'}/>
       </div>
-      <div className="mt-10" onClick={ScrollToClientInfo}>
-        <Buttons value={'Next'}/>
+      <div className="mt-10" onClick={saveFreelanceInfo}>
+        <Buttons value={'Save and continue'}/>
       </div>
           </div>
       </div>
@@ -487,7 +503,7 @@ const ClientspersonalInfo = () => {
         <Buttons value={'Back'}/>
         </div>
         <div className='' onClick={finishUp}>
-      <ButtonsTwo value={'Finish and submit'}/>
+      <ButtonsTwo value={'Save your profile'}/>
       </div>
         </div>
         </div>

@@ -29,7 +29,7 @@ export const Input = ({ Labelvalue, Number, width, value, onChange }) => {
         <input
           type={`${Number ? 'number' : 'text'}`}
           id="floating_outlined"
-          className={`block px-2.5 pb-2.5 pt-4 text-sm text-neutral-300 bg-transparent border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-neutral-300 focus:outline-none focus:ring-0 focus:border-purple-700 peer border w-full py-2 rounded-xl ${width ? 'w-full' : ''}`}
+          className={`'block px-2.5 pb-2.5 pt-4 text-sm text-neutral-300 bg-transparent  border-gray-300 appearance-none dark:text-white dark:focus:border-neutral-300 focus:outline-none focus:ring-0 focus:border-purple-700 peer border-b w-full py-2 rounded-lg ${width ? 'w-full' : ''}`}
           placeholder=" "
           required
           value={value}
@@ -37,7 +37,7 @@ export const Input = ({ Labelvalue, Number, width, value, onChange }) => {
         />
         <label
           htmlFor="floating_outlined"
-          className="absolute text-sm text-gray-500 dark:text-gray-400 duration-500 transform -translate-y-4 scale-75 top-2 origin-[0] dark:bg-gray-900 px-0 peer-focus:px-2 peer-focus:text-purple-600 peer-focus:dark:text-neutral-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto backdrop-blur-3xl start-1 ml-2"
+          className="absolute text-sm text-gray-500 dark:text-gray-400 duration-500 transform -translate-y-4 scale-75 top-2 origin-[0]  px-0 peer-focus:px-2 peer-focus:text-purple-600 peer-focus:dark:text-neutral-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 ml-2 -z-10"
         >
           {Labelvalue}
         </label>
@@ -54,7 +54,7 @@ export const Input = ({ Labelvalue, Number, width, value, onChange }) => {
     <div className="relative w-full md:w-1/2 md:mx-auto h-auto">
     <textarea
       id="floating_outlined"
-      className={`block px-2.5 pb-2.5 pt-4 text-sm text-neutral-300 bg-transparent border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-neutral-300 focus:outline-none focus:ring-0 focus:border-purple-700 peer border w-full py-2 rounded-xl h-24`}
+      className={`'block px-2.5 pb-2.5 pt-4 text-sm text-neutral-300 bg-transparent  border-gray-300 appearance-none dark:text-white dark:focus:border-neutral-300 focus:outline-none focus:ring-0 focus:border-purple-700 peer border-b w-full py-2 rounded-lg`}
       placeholder=""
       required
       value={value}
@@ -63,10 +63,29 @@ export const Input = ({ Labelvalue, Number, width, value, onChange }) => {
       </textarea>
     <label
       htmlFor="floating_outlined"
-      className="absolute text-sm text-gray-500 dark:text-gray-400 duration-500 transform -translate-y-4 scale-75 top-2 origin-[0] dark:bg-gray-900 px-0 peer-focus:px-2 peer-focus:text-purple-600 peer-focus:dark:text-neutral-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto backdrop-blur-3xl start-1 ml-2"
+      className="absolute text-sm text-gray-500 dark:text-gray-400 duration-500 transform -translate-y-4 scale-75 top-2 origin-[0]  px-0 peer-focus:px-2 peer-focus:text-purple-600 peer-focus:dark:text-neutral-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 ml-2 -z-10"
     >
       {labelValue}
     </label>
   </div>
     )
   }
+
+
+
+  export const LoadingScreen = () => {
+    return (
+      <div className="flex justify-center items-center ">
+        <div className="w-8 h-8 border-4  border-t-purple-700 border-r-purple-700 rounded-full animate-spin animation-delay-0" role="status"></div>
+        <div className="w-8 h-8 border-4 border-t-4 border-r-purple-700 border-b-purple-700  border-gray-200 rounded-full animate-spin animation-delay-200" role="status"></div>
+        <div className="w-8 h-8 border-4 border-t-4 border-b-purple-700 border-l-purple-700  border-gray-200 rounded-full animate-spin animation-delay-400" role="status"></div>
+        <div className="w-8 h-8 border-4 border-t-4 border-l-purple-700 border-t-purple-700  border-gray-200 rounded-full animate-spin animation-delay-600" role="status"></div>
+        <div className="w-8 h-8 border-4 border-t-4 border-t-purple-700 border-r-purple-700  border-gray-200 rounded-full animate-spin animation-delay-800" role="status"></div>
+        <div className="w-8 h-8 border-4 border-t-4 border-r-purple-700 border-b-purple-700  border-gray-200 rounded-full animate-spin animation-delay-1000" role="status"></div>
+        <div className="w-8 h-8 border-4 border-t-4 border-b-purple-700 border-l-purple-700  border-gray-200 rounded-full animate-spin animation-delay-1200" role="status"></div>
+      </div>
+    );
+  }
+  
+  
+  

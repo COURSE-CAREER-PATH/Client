@@ -5,9 +5,11 @@ import { enablePageScroll, disablePageScroll } from 'scroll-lock';
 import JopApplicationPage from './JopApplicationPage';
 import JobPostingPage from './JobPostingPage';
 import NotificationPage from './NotificationPage';
-import { Buttons, ButtonsTwo } from '../Buttons';
+import { Buttons, ButtonsTwo, LoadingScreen } from '../Buttons';
 import { Auth } from '../config/firebase';
 import { signOut } from 'firebase/auth';
+import { useGlobalState } from '../Forms/ClientsFolder/GlobalStateProvider';
+import Loading from "../../assets/icons/ccplogo2.png"
 
 const navItems = [
   { id: 'profile', icon: <User />, label: 'Profile' },
@@ -36,6 +38,7 @@ const logOut = async () => {
 
 const Maindashboard = () => {
   const [activeItem, setActiveItem] = useState('profile');
+  const {loading} = useGlobalState();
   const [isOpen, setIsOpen] = useState(false);
   const [topDrawer, setTopDrawer] = useState(false);
 
@@ -52,7 +55,7 @@ const Maindashboard = () => {
   }, []);
 
   useEffect(() => {
-    if (isOpen || topDrawer) {
+    if (isOpen ) {
       disablePageScroll();
     } else {
       enablePageScroll();
@@ -116,34 +119,27 @@ const Maindashboard = () => {
       {/* Top Drawer component */}
       <div
         id="drawer-top-example"
-        className={`fixed top-0 left-0 right-0 z-40 w-full p-4 transition-transform duration-1000 backdrop-blur-xl h-[50%] flex-col justify-around items-center  ${
-          topDrawer ? 'translate-y-0' : '-translate-y-full'
+        className={`fixed top-0 left-0 right-0 z-40 w-full p-4 transition-transform duration-1000 backdrop-blur-xl h-screen flex-col justify-around items-center  ${
+          loading  ? 'translate-y-0 translate-x-0' : '-translate-y-full -translate--full'
         }`}
         tabIndex="-1"
         aria-labelledby="drawer-top-label"
       >
-         <button
-          type="button"
-          onClick={toggleTopDrawer}
-          className=""
-        >
-          <X />
-          <span className="sr-only">Close menu</span>
-        </button>
-        
-         <div className="flex items-center p-2 mb-4 text-lg text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 h-[50%]" role="alert">
-      <div className='mx-auto flex flex-col items-center'>
-      <Info className="" aria-hidden="true" />
-      <span className="sr-only">Info</span>
-        <span className="text-xl md:text-2xl text-center">Info alert! Scroll down Update Your Profile to get the best experience on this platform</span> 
-      </div>
-    </div>
+        <div className="flex flex-col items-center justify-around gap-5">
+        <img src={Loading} alt="" className='mr-[25%] md:mr-[10%]'/>
+        <h1 className='text-2xl text-center'>
+           Fetch your data 
+        </h1>
+        <div className="transition animate-bounce">
+    <LoadingScreen/>
+        </div>
+        </div>
       </div>
 
       {/* Right Drawer component */}
       <div
         id="drawer-right-example"
-        className={`fixed top-0 right-0 z-40 h-screen p-4 overflow-x-auto transition-transform backdrop-blur-sm border border-purple-700 rounded-l-3xl w-80 dark:bg-gray-800 ${
+        className={`fixed top-0 right-0 z-40 h-screen p-4 overflow-x-auto transition-transform backdrop-blur-sm border border-purple-700 rounded-l-3xl w-80 duration-1000 dark:bg-gray-800 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
         tabIndex="-1"
