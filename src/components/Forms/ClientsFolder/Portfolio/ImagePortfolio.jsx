@@ -1,20 +1,20 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useGlobalState } from '../GlobalStateProvider';
 import { ImagePlus, Trash } from 'lucide-react';
-import { Auth, Storage, dataBase } from '../../../config/firebase'; // Ensure dataBase is initialized
-import { doc, getDoc, setDoc } from 'firebase/firestore'; // Import Firestore methods
-import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'; // Import Storage methods
+import { Auth, Storage, dataBase } from '../../../config/firebase';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 
 const ImagePortfolio = () => {
   const { setFormData, formData } = useGlobalState();
   const [selectedImages, setSelectedImages] = useState([]);
-  const [loading, setLoading] = useState(false); // State for loading
-  const user = Auth.currentUser; // Get the current user
+  const [loading, setLoading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false); // State for drag-and-drop
+  const user = Auth.currentUser;
 
-  // Function to fetch user's images from dataBase
   const fetchUserImages = useCallback(async () => {
     if (user) {
-      setLoading(true); // Show loading animation
+      setLoading(true);
       try {
         const userImagesRef = doc(dataBase, 'userInfo', user.uid);
         const docSnap = await getDoc(userImagesRef);
@@ -29,21 +29,19 @@ const ImagePortfolio = () => {
       } catch (error) {
         console.error("Error fetching user images: ", error);
       } finally {
-        setLoading(false); // Hide loading animation
+        setLoading(false);
       }
     }
   }, [user, setFormData]);
 
   useEffect(() => {
     fetchUserImages();
-  }, [fetchUserImages]); // Only run the effect if fetchUserImages changes
+  }, [fetchUserImages]);
 
-  // Upload images to Firebase Storage and save their URLs in dataBase
-  const handleImagesUploaded = async (event) => {
-    const files = event.target.files;
+  const handleImagesUploaded = async (files) => {
     const imageFiles = Array.from(files);
 
-    setLoading(true); // Show loading animation
+    setLoading(true);
 
     try {
       const uploadPromises = imageFiles.map(async (file) => {
@@ -62,7 +60,6 @@ const ImagePortfolio = () => {
         Portfolio: updatedImages,
       }));
 
-      // Save the URLs to dataBase
       if (user) {
         const userImagesRef = doc(dataBase, 'userInfo', user.uid);
         await setDoc(userImagesRef, { Portfolio: updatedImages }, { merge: true });
@@ -72,16 +69,37 @@ const ImagePortfolio = () => {
     } catch (error) {
       console.error("Error uploading images: ", error);
     } finally {
-      setLoading(false); // Hide loading animation
+      setLoading(false);
     }
   };
 
-  // Handle image deletion
+  const handleFileInputChange = (event) => {
+    handleImagesUploaded(event.target.files);
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    setIsDragging(false);
+    const files = event.dataTransfer.files;
+    if (files.length) {
+      handleImagesUploaded(files);
+    }
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
   const handleDeleteImage = async (index) => {
     const imageUrl = selectedImages[index];
     const updatedImages = selectedImages.filter((_, i) => i !== index);
 
-    setLoading(true); // Show loading animation
+    setLoading(true);
 
     try {
       setSelectedImages(updatedImages);
@@ -90,30 +108,33 @@ const ImagePortfolio = () => {
         Portfolio: updatedImages,
       }));
 
-      // Update dataBase after deletion
       if (user) {
         const userImagesRef = doc(dataBase, 'userInfo', user.uid);
         await setDoc(userImagesRef, { Portfolio: updatedImages }, { merge: true });
       }
 
-      // Delete the image from Firebase Storage
       const storageRef = ref(Storage, imageUrl);
       await deleteObject(storageRef);
     } catch (error) {
       console.error("Error deleting image: ", error);
     } finally {
-      setLoading(false); // Hide loading animation
+      setLoading(false);
     }
   };
 
   return (
-    <div className='relative'>
+    <div 
+      className={`relative ${isDragging ? 'border-2 border-dashed border-purple-700 bg-gray-200' : ''}`}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
       <label htmlFor="img-upload" className='text-center absolute z-40 text-neutral-300 active:animate-spin hover:text-purple-700 top-0 cursor-pointer transition'>
         <ImagePlus />
       </label>
       {loading && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-        <div className="w-16 h-16 border-4 border-t-4 border-b-purple-700 border-l-purple-700  border-gray-200 rounded-full animate-spin animation-delay-1200" role="status"></div>
+          <div className="w-16 h-16 border-4 border-t-4 border-b-purple-700 border-l-purple-700  border-gray-200 rounded-full animate-spin animation-delay-1200" role="status"></div>
         </div>
       )}
       {selectedImages.length > 0 ? (
@@ -138,7 +159,7 @@ const ImagePortfolio = () => {
       <input
         id='img-upload'
         type="file"
-        onChange={handleImagesUploaded}
+        onChange={handleFileInputChange}
         multiple
         accept="image/*"
         className="mt-4 hidden"
