@@ -208,7 +208,7 @@ const Paragraph = styled.p`
 
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Home } from 'lucide-react';
+import { EyeIcon, EyeOff, Home } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 
@@ -224,6 +224,9 @@ function Forms() {
   const [signupPasswordTwo, setSignupPasswordTwo] = useState('');
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
+  const [firstPasswordDisplay, setFirstPasswordDisplay] = useState(false)
+  const [secondPasswordDisplay, setSecondPasswordDisplay] = useState(false)
+  const [loginPasswordDisplay, setLoginPasswordDisplay] = useState(false)
   const { formData, setFormData, saveDataToFirestore, updateFormData } = useGlobalState();
   const navigate = useNavigate();
 
@@ -312,6 +315,15 @@ function Forms() {
     setLoginPassword('');
   };
 
+ const toggleFirstPasswordDisplay =()=>{
+  setFirstPasswordDisplay(!firstPasswordDisplay)
+ }
+ const toggleSecondPasswordDisplay =()=>{
+  setSecondPasswordDisplay(!secondPasswordDisplay)
+ }
+ const toggleLoginPasswordDisplay =()=>{
+  setLoginPasswordDisplay(!loginPasswordDisplay)
+ }
   return (
     <div className="block">
       <Main>
@@ -319,7 +331,7 @@ function Forms() {
           <SignUpContainer signinIn={signIn}>
             <Form className="text-neutral-600" onSubmit={createAcc}>
               <Title className="text-3xl text-purple-700 py-3 font-Ubuntu">Create Account</Title>
-
+              <div className="">
               <Input
                 type="text"
                 placeholder="User Name"
@@ -327,6 +339,8 @@ function Forms() {
                 value={formData.userName}
                 onChange={(e) => handleInputChange('userName', e)}
               />
+              </div>
+              <div className="">
               <Input
                 type="email"
                 placeholder="Email"
@@ -334,20 +348,56 @@ function Forms() {
                 value={signupEmail}
                 onChange={(e) => setSignupEmail(e.target.value)}
               />
+              </div>
+              <div className="relative">
               <Input
-                type="password"
+                type={firstPasswordDisplay? 'text': 'password'}
                 placeholder="Password"
                 required
                 value={signupPassword}
+                className='text-neutral-600'
                 onChange={(e) => setSignupPassword(e.target.value)}
               />
+                 <span className='absolute right-3 bottom-5 scale-75' onClick={toggleFirstPasswordDisplay}>
+                {
+                  firstPasswordDisplay ? 
+                  (
+                    <p>
+                      <EyeIcon/>
+                    </p>
+                  )
+                  : (
+                    <p>
+                      <EyeOff/>
+                    </p>
+                  )
+                }
+              </span>
+              </div>
+              <div className="relative">
               <Input
-                type="password"
+                type={secondPasswordDisplay? 'text': 'password'}
                 placeholder="Re enter Password"
                 required
                 value={signupPasswordTwo}
                 onChange={(e) => setSignupPasswordTwo(e.target.value)}
               />
+               <span className='absolute right-3 bottom-5 scale-75' onClick={toggleSecondPasswordDisplay}>
+                {
+                  secondPasswordDisplay ? 
+                  (
+                    <p>
+                      <EyeIcon/>
+                    </p>
+                  )
+                  : (
+                    <p>
+                      <EyeOff/>
+                    </p>
+                  )
+                }
+              </span>
+              </div>
               <Button>Sign Up</Button>
             </Form>
           </SignUpContainer>
@@ -355,6 +405,7 @@ function Forms() {
           <SignInContainer signinIn={signIn} className="text-neutral-600">
             <Form onSubmit={logintoAcc}>
               <Title className="text-3xl text-purple-700 py-3 font-Ubuntu">Log In</Title>
+              <div className="">
               <Input
                 type="email"
                 placeholder="Email"
@@ -362,13 +413,31 @@ function Forms() {
                 value={loginEmail}
                 onChange={(e) => setLoginEmail(e.target.value)}
               />
+              </div>
+              <div className="relative">
               <Input
-                type="password"
+                type={loginPasswordDisplay? 'text': 'password'}
                 placeholder="Password"
                 required
                 value={loginPassword}
                 onChange={(e) => setLoginPassword(e.target.value)}
               />
+              <span className='absolute right-3 bottom-5 scale-75' onClick={toggleLoginPasswordDisplay}>
+                {
+                  loginPasswordDisplay ? 
+                  (
+                    <p>
+                      <EyeIcon/>
+                    </p>
+                  )
+                  : (
+                    <p>
+                      <EyeOff/>
+                    </p>
+                  )
+                }
+              </span>
+              </div>
               <Link to={'/dashboard'}>Forgot your password?</Link>
               <Button>Log In</Button>
             </Form>

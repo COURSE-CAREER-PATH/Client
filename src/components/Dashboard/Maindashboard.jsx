@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { User, Briefcase, Bell, Menu, Handshake, X, Info } from 'lucide-react';
+import { User, Briefcase, Bell, Menu, Handshake, X, Info, Sun, Moon } from 'lucide-react';
 import ProfilePage from './ProfilePage';
 import { enablePageScroll, disablePageScroll } from 'scroll-lock';
 import JopApplicationPage from './JopApplicationPage';
@@ -7,9 +7,19 @@ import JobPostingPage from './JobPostingPage';
 import NotificationPage from './NotificationPage';
 import { Buttons, ButtonsTwo, LoadingScreen } from '../Buttons';
 import { Auth } from '../config/firebase';
-import { signOut } from 'firebase/auth';
+import { getAuth, signOut, sendEmailVerification, onAuthStateChanged } from 'firebase/auth';
 import { useGlobalState } from '../Forms/ClientsFolder/GlobalStateProvider';
 import Loading from "../../assets/icons/ccplogo2.png"
+import { useNavigate } from 'react-router';
+import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowUp } from "react-icons/io";
+import { MdOutlineDevices } from "react-icons/md";
+import { GrStatusGood } from "react-icons/gr";
+import { MdOutlineDangerous } from "react-icons/md";
+import { Link } from 'react-router-dom';
+
+
+
 
 const navItems = [
   { id: 'profile', icon: <User />, label: 'Profile' },
@@ -27,27 +37,24 @@ const H1styles = `
   hidden md:flex
 `;
 
-const logOut = async () => {
-  try {
-    signOut(Auth);
-    console.log('user logged out');
-  } catch (err) {
-    console.error(err);
-  }
-};
+
 
 const Maindashboard = () => {
+const navigate = useNavigate()
   const [activeItem, setActiveItem] = useState('profile');
   const {loading} = useGlobalState();
   const [isOpen, setIsOpen] = useState(false);
   const [topDrawer, setTopDrawer] = useState(false);
+  const [theme, setTheme] = useState(false)
+  const [verified, setVerified] = useState(false)
+  const [verificationLoader, setVerificationLoader] = useState(true)
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
   };
-  const toggleTopDrawer = () => {
-    setTopDrawer(!topDrawer);
-  };
+  const toggleTheme = ()=>{
+    setTheme(!theme)
+  }
 
   useEffect(() => {
     // Show the top drawer when the component is mounted
@@ -70,6 +77,66 @@ const Maindashboard = () => {
       console.log(item.label); // Log the label of the clicked item
     }
   };
+  const logOut = async () => {
+    try {
+      signOut(Auth);
+      console.log('user logged out');
+    } catch (err) {
+      console.error(err);
+    }
+    navigate('/')
+  };
+  const themePrompt = ()=>{
+    alert('This feature is comming soon')
+  }
+
+  const auth = getAuth()
+  const sendVerificationEmail = async () => {
+    if (auth.currentUser) {
+      try {
+        await sendEmailVerification(auth.currentUser);
+        alert('Click on the link sent to your email to be verified');
+        await auth.currentUser.reload();
+        setVerified(auth.currentUser.emailVerified);
+      } catch (error) {
+        console.error("Error sending verification email", error);
+      }
+    } else {
+      console.log("No user is logged in");
+    }
+  };
+  useEffect(()=>{
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user)=>{
+      if (user) {
+        if (user.emailVerified) {
+          console.log("Email verified.");
+        }else{
+          console.log("Email is yet to be verified");
+          
+        }
+      }
+    })
+  },[])
+
+  
+  useEffect(() => {
+    const checkVerification = async () => {
+      const user = Auth.currentUser;
+      if (user) {
+        await user.reload(); // Refresh the user's data from Firebase
+        setVerified(user.emailVerified);
+      }
+      setVerificationLoader(false);
+    };
+
+    // Listen for auth state changes
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        checkVerification();
+      }
+    });
+  }, [auth]);
 
   return (
     <>
@@ -139,7 +206,7 @@ const Maindashboard = () => {
       {/* Right Drawer component */}
       <div
         id="drawer-right-example"
-        className={`fixed top-0 right-0 z-40 h-screen p-4 overflow-x-auto transition-transform backdrop-blur-sm border border-purple-700 rounded-l-3xl w-80 duration-1000 dark:bg-gray-800 ${
+        className={`fixed top-0 right-0 z-40 h-screen p-4 overflow-x-auto transition-transform backdrop-blur-sm border border-purple-700 rounded-l-3xl w-72 duration-1000 dark:bg-gray-800 flex flex-col justify-between ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
         tabIndex="-1"
@@ -147,19 +214,71 @@ const Maindashboard = () => {
       >
         <h5
           id="drawer-right-label"
-          className="inline-flex items-center mb-4 text-base font-semibold text-neutral-200 dark:text-gray-400"
+          className="inline-flex items-center mb-4 text-base font-semibold text-neutral-200 dark:text-gray-400 "
         >
           Menu
         </h5>
         <button
           type="button"
           onClick={toggleDrawer}
-          className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 right-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
+          className="absolute right-5"
         >
-          <X />
+          <X className='active:animate-spin transition hover:text-neutral-500'/>
           <span className="sr-only">Close menu</span>
         </button>
-        <div className="flex absolute bottom-3">
+
+        <div className="h-[70dvh] mx-auto text-center flex flex-col justify-around">
+  <div className="relative flex flex-col overflow-hidden px-6 " onClick={toggleTheme}>
+    <h1 className="flex items-center gap-3 mx-auto cursor-pointer hover:animate-pulse transition">
+      Select theme
+      <span>
+        {
+          theme? <IoIosArrowUp/> : <IoIosArrowDown/>
+
+        }
+      </span>
+    </h1>
+    <div
+      className={`flex flex-col justify-between overflow-hidden transition-all duration-1000 gap-y-5 cursor-pointer ${
+        theme ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0'
+      }`}
+    >
+      <p className="py-1 pl-5 flex gap-x-2" onClick={themePrompt}>Light theme <span className='text-yellow-400'><Sun/></span></p>
+      <p className="py-1 pl-5 flex gap-x-2" onClick={themePrompt}> Dark theme<span><Moon/></span></p>
+      <p className="py-1 flex gap-x-2 items-center pl-5"  onClick={themePrompt}>Device default<span><MdOutlineDevices/></span></p>
+    </div>
+  </div>
+  <div>
+    <Link to={'/accountsettings'}>
+    Account settings
+    </Link>
+  </div>
+  <div>
+    {/*Verify Email */}
+    <h1 className='w-1/2 flex items-center gap-3 mx-auto cursor-pointer hover:animate-pulse transition flex-col' onClick={sendVerificationEmail}>
+      <p>
+      Verify Email
+
+      </p>
+      {
+        verified ? (
+          <p className='flex items-center gap-x-1 bg-green ml-4 transition animate-bounce'>
+              Verified <span className='bg-green-700 p-1 rounded-full scale-75'><GrStatusGood/></span>
+          </p>
+        ) : (
+          <p  className='flex items-center gap-x-1 bg-green  transition animate-bounce'>
+              Unverified <span  className='bg-red-800 p-1 rounded-full scale-75'> <MdOutlineDangerous/></span>
+          </p>
+        )
+      }
+    </h1>
+  </div>
+  <div>Report abuser</div>
+  <div>FAQ</div>
+</div>
+
+
+        <div className="flex">
           <span onClick={logOut}>
             <Buttons value={'Log Out'} />
           </span>

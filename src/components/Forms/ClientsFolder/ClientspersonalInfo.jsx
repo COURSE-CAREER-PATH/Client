@@ -17,6 +17,10 @@ import PortFolioLinks from './Portfolio/PortFolioLinks';
 import ClientInfo from './ClientInfo';
 import CompanySizeSelector from './CompanySizeSelector';
 import { IoIosLink } from 'react-icons/io';
+import { doc, updateDoc } from 'firebase/firestore';
+import { dataBase } from '../../config/firebase';
+
+
 
 
 
@@ -97,6 +101,34 @@ const ClientspersonalInfo = () => {
     ScrollToClientInfo()
   }
 
+  const deleteProfilePicture = async () => {
+    try {
+      const userId = formData.uid; // Ensure that `formData` contains the user's ID
+  
+      if (!userId) {
+        throw new Error("User ID is missing from formData.");
+      }
+  
+      // Reference to the user's document in Firestore
+      const userDocRef = doc(dataBase, 'userInfo', userId);
+  
+      // Remove the ProfilePicture field from the document
+      await updateDoc(userDocRef, {
+        ProfilePicture: '', // Set it to an empty string or you can use firebase.firestore.FieldValue.delete() to completely remove the field
+      });
+  
+      // Update the local state to remove the profile picture
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        ProfilePicture: '',
+      }));
+  
+      console.log(`Profile picture removed for user: ${userId}`);
+    } catch (error) {
+      console.error("Error removing profile picture: ", error);
+    }
+  };
+  
 
   return (
     // main div
@@ -111,7 +143,7 @@ const ClientspersonalInfo = () => {
               <DownloadIcon/>
               </a>
               <span>
-                <Trash/>
+                <Trash onClick={deleteProfilePicture}/>
               </span>
             </button>
             <div className="flex items-center justify-center ">
@@ -189,13 +221,13 @@ const ClientspersonalInfo = () => {
         <h1>
           {
             formData.mobileNumber || formData.Email ? 
-            <h1>
+            <p>
               {formData.mobileNumber}
-            </h1>
+            </p>
             ||
-            <h1>
+            <p>
               {formData.Email}
-            </h1>
+            </p>
             :
             <p>
               Add contact Information

@@ -8,9 +8,9 @@ import Nopage from "./components/Nopage";
 import Footer from "./components/footer/Footer";
 import Forms from "./components/Forms/Forms";
 import FirstPrompt from "./components/Forms/FirstPrompt";
-import ClientspersonalInfo from "./components/Forms/ClientsFolder/ClientspersonalInfo";
 import Maindashboard from "./components/Dashboard/Maindashboard";
 import { GlobalStateProvider } from "./components/Forms/ClientsFolder/GlobalStateProvider";
+import AccountSettings from "./components/Forms/accountsetting/AccountSettings";
 
 
 
@@ -68,6 +68,14 @@ function App() {
             element={
               <>
                 <Maindashboard/>
+              </>
+            }
+          />
+          <Route
+            path="/accountsettings/*"
+            element={
+              <>
+                <AccountSettings/>
               </>
             }
           />
