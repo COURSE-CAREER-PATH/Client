@@ -24,7 +24,7 @@ const AdminLogin = () => {
                         </div>
                 </div>
                 <Link to={'/'}>
-                <h3 className='text-purple-700 text-center text-sm pt-8 hover:text-neutral-500 absolute '>
+                <h3 className='text-purple-700 text-center text-sm pt-8 hover:animate-pulse absolute '>
                     <Home/>
                 </h3>
                 </Link>

@@ -27,7 +27,7 @@ function Courses() {
 
   return (
     <>
-      <h1 className="text-lg text-center mt-40 text-neutral-400 uppercase">
+      <h1 className="text-lg text-center mt-40  uppercase">
         Find a job best suitable for you profession
       </h1>
       <input
@@ -43,7 +43,7 @@ function Courses() {
             <Link to={'/login'}> 
             <div key={index} className=''>
               <li 
-                className='m-2 list-none border-[2px] border-purple-700 px-4 py-4 rounded-full active:border-neutral-300 text-neutral-300 hover:text-neutral-500 cursor-pointer'
+                className='m-2 list-none border-[2px] border-purple-700 px-4 py-4 rounded-full active:border-neutral-300  hover:animate-pulse transition cursor-pointer'
               >
                 {item.course}
               </li>
@@ -53,7 +53,7 @@ function Courses() {
           {filteredItems.length > 10 && (
             <button
               onClick={handleSeeMore}
-              className='mt-4 px-4 py-2  text-neutral-400 hover:text-neutral-500 '
+              className='mt-4 px-4 py-2   hover:animate-pulse transition '
             >
               {visibleCount === filteredItems.length ? 'See Less...' : 'See More...'}
             </button>

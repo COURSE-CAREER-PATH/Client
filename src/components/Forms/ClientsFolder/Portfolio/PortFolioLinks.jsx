@@ -25,14 +25,14 @@ const PortfolioLinks = () => {
   };
 
   return (
-    <div className='w-full md:w-1/2 flex mx-auto flex-col'>
+    <div className='w-full flex mx-auto flex-col'>
       {links.map((link, index) => (
         <div key={index}  className='flex items-center justify-around flex-col md:flex-row gap-6 mb-4'>
           <div className="relative">
           <input
           id='linkName'
           placeholder=""
-           className='block px-2.5 pb-2.5 pt-4 text-sm text-neutral-300 bg-transparent  border-gray-300 appearance-none dark:text-white dark:focus:border-neutral-300 focus:outline-none focus:ring-0 focus:border-purple-700 peer border-b w-full py-2 rounded-lg'
+           className='block px-2.5 pb-2.5 pt-4 text-sm bg-transparent  border-gray-300 appearance-none dark:text-white dark:focus:border-neutral-300 focus:outline-none focus:ring-0 focus:border-purple-700 peer border-b w-full py-2 transition duration-1000'
             type="text"
             name="name"
             value={link.name}
@@ -40,7 +40,7 @@ const PortfolioLinks = () => {
             style={{ marginRight: '10px' }}
           />
           <label htmlFor="linkName"
-           className="absolute text-sm text-gray-500 dark:text-gray-400 duration-500 transform -translate-y-4 scale-75 top-2 origin-[0]  px-0 peer-focus:px-2 peer-focus:text-purple-600 peer-focus:dark:text-neutral-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 ml-2 -z-10"
+           className="absolute text-sm text-gray-500 dark:text-gray-400 duration-500 transform -translate-y-4 scale-75 top-2 origin-[0]  px-0 peer-focus:px-2 peer-focus:text-purple-600 peer-focus:dark peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 ml-2 -z-10"
           >
             Project Name
           </label>
@@ -48,7 +48,7 @@ const PortfolioLinks = () => {
           <div className="relative">
           <input
           id='URL'
-          className='block px-2.5 pb-2.5 pt-4 text-sm text-neutral-300 bg-transparent  border-gray-300 appearance-none dark:text-white dark:focus:border-neutral-300 focus:outline-none focus:ring-0 focus:border-purple-700 peer border-b w-full py-2 rounded-lg'
+          className='block px-2.5 pb-2.5 pt-4 text-sm bg-transparent  border-gray-300 appearance-none dark:text-white dark:focus:border-neutral-300 focus:outline-none focus:ring-0 focus:border-purple-700 peer border-b w-full py-2 transition duration-1000'
             type="text"
             name="url"
             value={link.url}
@@ -56,7 +56,7 @@ const PortfolioLinks = () => {
             placeholder=""
           />
           <label htmlFor="URL"
-          className="absolute text-sm text-gray-500 dark:text-gray-400 duration-500 transform -translate-y-4 scale-75 top-2 origin-[0]  px-0 peer-focus:px-2 peer-focus:text-purple-600 peer-focus:dark:text-neutral-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 ml-2 -z-10"
+          className="absolute text-sm text-gray-500 dark:text-gray-400 duration-500 transform -translate-y-4 scale-75 top-2 origin-[0]  px-0 peer-focus:px-2 peer-focus:text-purple-600 peer-focus:dark peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 ml-2 -z-10"
           >
             Project Url
           </label>

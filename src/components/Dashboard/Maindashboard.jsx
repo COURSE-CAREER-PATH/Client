@@ -30,7 +30,7 @@ const navItems = [
 ];
 
 const HeaderdivStyles = `
-  flex gap-2 cursor-pointer hover:text-neutral-400 transition duration-500 ease-in-out
+  flex gap-2 cursor-pointer hover:animate-pulse transition duration-500 ease-in-out
 `;
 
 const H1styles = `
@@ -142,7 +142,7 @@ const navigate = useNavigate()
     <>
     <div className="" >
       <div className='fixed w-[100%] z-40'>
-        <nav className="text-center items-center justify-around flex w-full border-b border-neutral-500 h-16 py-10 px-4 text-neutral-300 backdrop-blur-sm">
+        <nav className="text-center items-center justify-around flex w-full border-b border-neutral-500 h-16 py-10 px-4 backdrop-blur-sm">
           {navItems.map((item) => (
             <div
               key={item.id}
@@ -188,14 +188,14 @@ const navigate = useNavigate()
         id="drawer-top-example"
         className={`fixed top-0 left-0 right-0 z-40 w-full p-4 transition-transform duration-1000 backdrop-blur-xl h-screen flex-col justify-around items-center  ${
           loading  ? 'translate-y-0 translate-x-0' : '-translate-y-full -translate--full'
-        }`}
+        } `}
         tabIndex="-1"
         aria-labelledby="drawer-top-label"
       >
-        <div className="flex flex-col items-center justify-around gap-5">
+        <div className="w-[50%] md:w-[50%] h-[auto]  absolute left-[50%] top-[50%] transform -translate-x-1/2 -translate-y-1/2   text-center">
         <img src={Loading} alt="" className='mr-[25%] md:mr-[10%]'/>
-        <h1 className='text-2xl text-center'>
-           Fetch your data 
+        <h1 className='text-2xl text-center my-4'>
+           Please wait...
         </h1>
         <div className="transition animate-bounce">
     <LoadingScreen/>
@@ -214,7 +214,7 @@ const navigate = useNavigate()
       >
         <h5
           id="drawer-right-label"
-          className="inline-flex items-center mb-4 text-base font-semibold text-neutral-200 dark:text-gray-400 "
+          className="inline-flex items-center mb-4 text-base font-semibold dark:text-gray-400 "
         >
           Menu
         </h5>
@@ -223,7 +223,7 @@ const navigate = useNavigate()
           onClick={toggleDrawer}
           className="absolute right-5"
         >
-          <X className='active:animate-spin transition hover:text-neutral-500'/>
+          <X className='active:animate-spin transition hover'/>
           <span className="sr-only">Close menu</span>
         </button>
 

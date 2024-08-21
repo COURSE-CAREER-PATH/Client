@@ -1,22 +1,104 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { Buttons, Input } from '../../Buttons';
+import { getAuth, updateEmail, reauthenticateWithCredential, EmailAuthProvider, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 const ChangeEmail = () => {
-  return (
-    <>
-    <div>
-      <div className="w-[50%] md:w-[30%] h-[50dvh] border absolute left-[50%] top-[50%] transform -translate-x-1/2 -translate-y-1/2 rounded-2xl border-purple-700 text-center">
-        <h1 className=' text-2xl md:text-3xl mt-3'>
-        Account Settings
-        </h1>
-        <div className="h-full flex flex-col justify-around">
-            <p>Change Email</p>
-            <p>Reset Password</p>
-            <p>Delete account</p>
-        </div>
-      </div>
-    </div>
-    </>
-  )
-}
+  const [newEmail, setNewEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
-export default ChangeEmail
+  const auth = getAuth();
+
+  const handleEmailChange = () => {
+    setMessage(''); // Clear any previous message
+    const user = auth.currentUser;
+
+    if (user) {
+      // Check the user's authentication provider
+      const providerId = user.providerData[0]?.providerId;
+      
+      if (providerId === 'password') {
+        // If the user signed in with email and password
+        const credential = EmailAuthProvider.credential(user.email, password);
+
+        reauthenticateWithCredential(user, credential)
+          .then(() => {
+            // Update the email
+            updateEmail(user, newEmail)
+              .then(() => {
+                setMessage('Email updated successfully! Please verify your new email.');
+              })
+              .catch((error) => {
+                setMessage(`Error updating email: ${error.message}`);
+              });
+          })
+          .catch((error) => {
+            setMessage(`Re-authentication failed: ${error.message}`);
+          });
+      } else if (providerId === 'google.com') {
+        // If the user signed in with Google, reauthenticate using Google
+        const provider = new GoogleAuthProvider();
+
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+
+            if (credential) {
+              reauthenticateWithCredential(user, credential)
+                .then(() => {
+                  // Update the email after reauthentication
+                  updateEmail(user, newEmail)
+                    .then(() => {
+                      setMessage('Email updated successfully! Please verify your new email.');
+                    })
+                    .catch((error) => {
+                      setMessage(`Error updating email: ${error.message}`);
+                    });
+                })
+                .catch((error) => {
+                  setMessage(`Re-authentication with Google failed: ${error.message}`);
+                });
+            } else {
+              setMessage('Failed to retrieve Google credentials');
+            }
+          })
+          .catch((error) => {
+            setMessage(`Error during Google sign-in: ${error.message}`);
+          });
+      } else {
+        setMessage('Unsupported authentication provider');
+      }
+    } else {
+      setMessage('No user is signed in');
+    }
+  };
+
+  return (
+    <div className='mx-auto w-[80%] flex flex-col gap-4'>
+      {/* Input for Account Password */}
+      <Input
+        Labelvalue={'Account Password'}
+        value={password}
+        onChange={(value) => setPassword(value)}
+      />
+      
+      {/* Input for New Email */}
+      <Input
+        Labelvalue={'New Email'}
+        value={newEmail}
+        onChange={(value) => setNewEmail(value)}
+      />
+      
+      {/* Submit Button */}
+      <Buttons 
+        value={'Submit'} 
+        click={handleEmailChange}
+      />
+      
+      {/* Feedback Message */}
+      {message && <p>{message}</p>}
+    </div>
+  );
+};
+
+export default ChangeEmail;

@@ -21,7 +21,7 @@ export const Subhero = () => {
   return (
     <div className="">
         <div className="lg:mt-20 mt-[45rem]  mb-[5rem] border-b border-neutral-700  lg:border-t lg:pt-24">
-            <h1 className="uppercase text-center pb-10 font-Ubuntu text-xl lg:text-3xl text-neutral-400">
+            <h1 className="uppercase text-center pb-10 font-Ubuntu text-xl lg:text-3xl">
                 What We Do
             </h1>
             <ul>
@@ -29,10 +29,10 @@ export const Subhero = () => {
                   <>
                   <div className="flex items-center  px-2 mx-auto max-w-screen-xl lg:px-6 lg:even:flex-row-reverse lg:flex-row flex-col gap-10 mt-10 pb-10  border-b" key={index}>
                     <div className="w-1/2">
-                      <h1 className="text-center uppercase font-extrabold text-neutral-300 lg:text-xl text-lg mb-10">
+                      <h1 className="text-center uppercase font-extrabold lg:text-xl text-lg mb-10">
                         {item.title}
                       </h1>
-                      <h3 className="font-Ubuntu text-sm lg:text-lg text-neutral-400 text-center">
+                      <h3 className="font-Ubuntu text-sm lg:text-lg text-center">
                         {item.text}
                       </h3>
                     </div>
@@ -44,7 +44,7 @@ export const Subhero = () => {
                 ))}
             </ul>
         </div>
-        <h1 className="uppercase text-center pb-10 font-Ubuntu text-xl lg:text-3xl text-neutral-400">
+        <h1 className="uppercase text-center pb-10 font-Ubuntu text-xl lg:text-3xl">
           Some of the many jobs we offer
         </h1>
         <div className=" px-2 mx-auto max-w-screen-xl lg:px-6 -z-10">
@@ -85,35 +85,35 @@ export const Subhero = () => {
         </div>
       <div className="columns-1 md:columns-2 xl:columns-3 gap-7 my-2 md:my-4">
       <div className=" break-inside-avoid mb-8 overflow-hidden rounded-lg">
-      <h3 className="mx-5 text-neutral-200 text-3xl z-10 absolute">GYM Instructors</h3>
+      <h3 className="mx-5 text-3xl z-10 absolute">GYM Instructors</h3>
       <img className="h-auto max-w-full  hover:scale-105 transition-transform duration-500 ease-in-out rounded-lg" src={Gym} alt="Gallery image" />
       </div>
       <div className=" break-inside-avoid  mb-8 overflow-hidden rounded-lg">
-      <h3 className="mx-5 text-neutral-200 text-3xl z-10 absolute">Fitness Trainer</h3>
+      <h3 className="mx-5 text-3xl z-10 absolute">Fitness Trainer</h3>
       <img className="h-auto max-w-full rounded-lg hover:scale-105 transition-transform duration-500 ease-in-out" src={Fitness} alt="Gallery image" />
       </div>
       <div className=" break-inside-avoid mb-8 overflow-hidden rounded-lg">
-      <h3 className="mx-5 text-neutral-200 text-3xl z-10 absolute ">Real Estate</h3>
+      <h3 className="mx-5 text-3xl z-10 absolute ">Real Estate</h3>
       <img className="h-auto max-w-full rounded-lg hover:scale-105 transition-transform duration-500 ease-in-out" src={EState} alt="Gallery image" />
       </div>
       <div className=" break-inside-avoid  mb-8 overflow-hidden rounded-lg">
-      <h3 className="mx-5 text-neutral-200 text-3xl z-10 absolute">Virtual Reality</h3>
+      <h3 className="mx-5 text-3xl z-10 absolute">Virtual Reality</h3>
       <img className="h-auto max-w-full rounded-lg hover:scale-105 transition-transform duration-500 ease-in-out" src={VR} alt="Gallery image" />
       </div>
       <div className=" break-inside-avoid  mb-8 overflow-hidden rounded-lg">
-      <h3 className="mx-5 text-neutral-300 text-3xl z-10 absolute">UI/UX Designer</h3>
+      <h3 className="mx-5 text-3xl z-10 absolute">UI/UX Designer</h3>
       <img className="h-auto max-w-full rounded-lg hover:scale-105 transition-transform duration-500 ease-in-out" src={Ui} alt="Gallery image" />
       </div>
       <div className=" break-inside-avoid  mb-8 overflow-hidden rounded-lg">
-      <h3 className="mx-5 text-neutral-500 text-3xl z-10 absolute">Pet Care Specialist</h3>
+      <h3 className="mx-5 text-3xl z-10 absolute">Pet Care Specialist</h3>
       <img className="h-auto max-w-full rounded-lg hover:scale-105 transition-transform duration-500 ease-in-out" src={Pet} alt="Gallery image" />
       </div>
       <div className=" break-inside-avoid  mb-8 overflow-hidden rounded-lg">
-      <h3 className="mx-5 text-neutral-500 text-3xl z-10 absolute">Interior Designer</h3>
+      <h3 className="mx-5 text-3xl z-10 absolute">Interior Designer</h3>
       <img className="h-auto max-w-full rounded-lg hover:scale-105 transition-transform duration-500 ease-in-out" src={Interior} alt="Gallery image" />
       </div>
       <div className=" break-inside-avoid  mb-8 overflow-hidden rounded-lg">
-      <h3 className="mx-5 text-neutral-200 text-3xl z-10 absolute">E Tutor</h3>
+      <h3 className="mx-5 text-3xl z-10 absolute">E Tutor</h3>
       <img className="h-auto max-w-full rounded-lg hover:scale-105 transition-transform duration-500 ease-in-out" src={Learning} alt="Gallery image" />
       </div>
       </div>

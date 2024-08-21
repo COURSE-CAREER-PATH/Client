@@ -27,7 +27,7 @@ const MultiSelectDropdown = () => {
     );
 
     return (
-        <div className='text-neutral-900'>
+        <div className='text-red-700'>
             <Select 
                 className=''
                 isMulti

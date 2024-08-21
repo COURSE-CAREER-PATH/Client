@@ -10,14 +10,14 @@ const Herosection = () => {
   return (
     <div className=''>
      <div className="mt-44  z-20 font-Ubuntu">
-      <h1 className='text-purple-700 text-2xl lg:mt-80 lg:text-7xl lg:mb-5 md:mb-2 font-bold w-1/2 ml-10 uppercase'>
-       Elevate your career with <span className='text-neutral-100 text-4xl lg:text-8xl '>
+      <h1 className=' text-2xl lg:mt-80 lg:text-7xl lg:mb-5 md:mb-2 font-bold w-1/2 ml-10 uppercase'>
+       Elevate your career with <span className=' text-4xl lg:text-8xl text-purple-700'>
         CCP
         </span> today
       
       </h1>
      
-      <h2 className=' text-neutral-100 ml-10 font-mono w-1/2'>
+      <h2 className='  ml-10 font-mono w-1/2'>
         Journey with us into establishing an out standing career best suitatable for you
       </h2>
      </div>

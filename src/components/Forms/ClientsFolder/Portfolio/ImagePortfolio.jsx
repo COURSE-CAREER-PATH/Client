@@ -129,7 +129,7 @@ const ImagePortfolio = () => {
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
-      <label htmlFor="img-upload" className='text-center absolute z-40 text-neutral-300 active:animate-spin hover:text-purple-700 top-0 cursor-pointer transition'>
+      <label htmlFor="img-upload" className='text-center absolute z-40 active:animate-spin hover:text-purple-700 top-0 cursor-pointer transition'>
         <ImagePlus />
       </label>
       {loading && (

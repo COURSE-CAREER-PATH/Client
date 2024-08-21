@@ -58,11 +58,8 @@ const CountriesList = () => {
 
   return (
     <div>
-      <div className='px-3'>
+      <div className='px-3 my-8'>
         <div className="">
-          <h2 className='text-2xl font-Ubuntu text-neutral-400 text-center'>
-            Residence
-          </h2>
           <br />
           <div className="grid gap-3 grid-cols-1 md:grid-cols-3">
             <div className="flex items-center justify-between">

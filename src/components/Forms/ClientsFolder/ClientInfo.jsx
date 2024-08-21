@@ -16,11 +16,11 @@ const ClientInfo = () => {
       </div>
       <div className="">
         {formData.companyName? (
-          <h1 className='text-3xl font-bold text-neutral-200'>
+          <h1 className='text-3xl font-bold'>
             {formData.companyName}
           </h1>
         ) : (
-          <h1 className='text-5xl font-bold text-neutral-200'>
+          <h1 className='text-5xl font-bold'>
             No added Company Name
           </h1>
         )}

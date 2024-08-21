@@ -25,7 +25,7 @@ const FreelancerInfo = () => {
           <h1 className=" font-bold text-2xl md:text-4xl">
             {
               formData.firstName && formData.lastName && formData.middleName? (
-                <p className='flex gap-3 lg:flex-col lg:gap-1'>
+                <p className='flex gap-3  lg:gap-1'>
                   <b>
                     {formData.firstName}
                   </b>
@@ -39,14 +39,14 @@ const FreelancerInfo = () => {
               </p>
             }
           </h1>
-          <p className="text-xl text-neutral-100">
+          <p className="text-xl ">
             {formData.Profession? formData.Profession : (
               <b>
                 Profession
               </b>
             )}
           </p>
-          <div className="text-neutral-100">
+          <div className="">
           <b className='flex gap-1 text-xs my-1 md:my-2'>
           <p>
             <ImLocation/>
@@ -62,12 +62,12 @@ const FreelancerInfo = () => {
           </p>
         </b>
             </div>
-          <p className="text-neutral-100">{formData.Email? formData.Email : (
+          <p className="">{formData.Email? formData.Email : (
             <b>
               No Added Email
             </b>
           )}</p>
-          <p className="text-neutral-100">{formData.mobileNumber? formData.mobileNumber :(
+          <p className="">{formData.mobileNumber? formData.mobileNumber :(
             <b>
               No added Mobile Number 
             </b>
@@ -78,7 +78,7 @@ const FreelancerInfo = () => {
       {/* Bio */}
       <div className="mt-8">
         <h2 className="text-2xl font-bold">Deescribe Work History And Profession</h2>
-        <span className="text-neutral-100 mt-2">{formData.Overview? formData.Overview : (
+        <span className=" mt-2">{formData.Overview? formData.Overview : (
           <p>
             No added description
           </p>
@@ -92,7 +92,7 @@ const FreelancerInfo = () => {
     {Skills.length > 0 ? (
       Skills.map((skill, index) => (
         <div key={index} className="mr-4 mb-2">
-          <div className="rounded-full px-4 py-2 border border-purple-700 text-neutral-300  cursor-pointer">
+          <div className="rounded-full px-4 py-2 border border-purple-700   cursor-pointer">
             <div className="" key={index}>
             {skill.label}
             <StarRating totalStars={5} index={index}/>
@@ -129,24 +129,6 @@ const FreelancerInfo = () => {
               <h2 className="text-2xl font-bold">Project Links </h2>
               <div className=" border border-purple-700 rounded-3xl flex items-center w-full h-64 ">
               <DisplayProjects/>
-              </div>
-            </div>
-
-            <div className="mt-8">
-              <h2 className="text-2xl font-bold">Testimonials</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
-                  <div className="border border-purple-700 rounded-3xl p-4">
-                    <p className="text-neutral-100"></p>
-                    <p className="text-neutral-100 font-bold mt-2"></p>
-                    <p className="text-neutral-100"></p>
-                  </div>
-              </div>
-            </div>
-
-            <div className="mt-8">
-              <h2 className="text-2xl font-bold">Contact</h2>
-              <div className="flex space-x-4 mt-4">
-                
               </div>
             </div>
           </>

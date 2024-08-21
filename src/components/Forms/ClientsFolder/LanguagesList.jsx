@@ -51,7 +51,7 @@ const LanguagesDropdown = () => {
         <select
           value={selectedLanguage}
           onChange={handleChange}
-          className="p-2 border border-neutral-400 rounded-xl py-3 w-full outline-0 focus:border-purple-700"
+          className="p-2 border-b border-neutral-400 transition duration-1000 py-3 w-full outline-0 focus:border-purple-700"
         >
           <option value="" disabled>Select a language</option>
           {languages.map((language, index) => (

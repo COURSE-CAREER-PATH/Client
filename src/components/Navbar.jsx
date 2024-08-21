@@ -8,9 +8,9 @@ import { enablePageScroll, disablePageScroll } from "scroll-lock";
 
 
 const MdNavStylesLi = `border-neutral-600 px-5 py-5`
-const LgNavStylesLi = `border-r border-neutral-600 px-5  w-32`
-const MdNavStylesA = `font-bold text-neutral-100 hover:text-neutral-300`
-const LgNavStylesA = `font-bold text-neutral-100 hover:text-neutral-400`
+const LgNavStylesLi = `border-r border-neutral-600 px-5  w-44`
+const MdNavStylesA = `font-bold  hover:animate-pulse transition`
+const LgNavStylesA = `font-bold  hover:animate-pulse transition`
 
 
 const Navbar = () => {
@@ -64,7 +64,7 @@ const Navbar = () => {
           <Link to={'/*'}>
            <li className={LgNavStylesLi}>
             <a href="" className={LgNavStylesA}>
-              Help/Faq
+              Help/FAQ
             </a>
            </li>
           </Link>

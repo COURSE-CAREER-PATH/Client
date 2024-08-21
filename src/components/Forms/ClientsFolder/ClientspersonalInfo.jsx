@@ -24,7 +24,7 @@ import { dataBase } from '../../config/firebase';
 
 
 
-const Divheader = 'text-center pb-2';
+const Divheader = 'text-start pb-2';
 
 const InfoSection = `mt-28 h-auto flex flex-col  items-start lg:w-[33%] mx-4 my-3 border border-purple-700 rounded-3xl py-10 hover:border-neutral-400`
 
@@ -171,7 +171,7 @@ const ClientspersonalInfo = () => {
             </p>
           )}
         </div>
-        <div className="text-sm my-3 md:my-5 text-start">
+        <div className="text-sm my-3 md:my-5 text-start max-w-[90%]">
          {
           formData.Bio? (
               formData.Bio
@@ -254,7 +254,7 @@ const ClientspersonalInfo = () => {
         <Buttons value={'Edit profile'}/>
       </div>
       </div>
-     <div className={`${InfoSection} relative`}>
+     <div className={`${InfoSection} relative overflow-y-auto scrollbar-none`}>
         <FreelancerInfo/>
         <div className="mx-auto absolute bottom-5 left-1/3" onClick={ScrollToFreelanceInfo}>
         <ButtonsTwo value={'Edit Freelance Info'}/>
@@ -272,17 +272,18 @@ const ClientspersonalInfo = () => {
       <div className=" w-[90%] border border-purple-700 rounded-3xl mx-auto overflow-hidden scrollbar-none">
         <div className="w-[300%] flex items-center justify-between">
       <div className="flex flex-col  w-[100%] py-10 mt-2 px-5 h-auto "  ref={PersonalInfoRef}>
-        <h1 className="text-3xl font-Ubuntu text-neutral-400 text-center mb-10">
+        <h1 className="text-3xl font-Ubuntu text-center mb-10">
           Personal Information
         </h1>
-        <div className="flex flex-col gap-4 items-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols- gap-6">
             <div className="w-full md:w-auto">
               <h1 className={Divheader}>First Name</h1>
               <Input
                 Labelvalue="First Name"
                 value={formData.firstName}
                 onChange={(value) => handleInputChange('firstName', value)}
+                
               />
             </div>
             <div className="w-full md:w-auto">
@@ -312,7 +313,7 @@ const ClientspersonalInfo = () => {
             </div>
           </div>
           <CountriesList />
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-start">
             <div className="col-span-2">
               <p className="font-semi-bold">Aditional Address</p>
               <Input
@@ -337,7 +338,7 @@ const ClientspersonalInfo = () => {
               </div>
           </div>
         </div>
-        <div className="my-8 flex flex-col text-center">
+        <div className="flex gap-y-2 flex-col my-5 md:w-1/2 md:mx-auto">
           <h1>
             Describe yourself 
           </h1>
@@ -383,13 +384,13 @@ const ClientspersonalInfo = () => {
         </div>
       </div>
       
-      <div className='my-10 w-[100%]  h-auto py-10 flex flex-col' ref={freeLanceInfoRef}>
+      <div className='w-[100%] mx-auto flex flex-col h-auto text-center px-5 md:px-16' ref={freeLanceInfoRef}>
       <div className="gap-10 flex flex-col capitalize text-center">
-          <h1 className='text-center my-10 mb-5 text-3xl text-neutral-500 '>
+          <h1 className='text-center my-10 mb-5 text-3xl '>
             Info As Freelancer
           </h1>
-          <div className="md:w-1/2 lg:w-1/4 mx-auto ">
-          <p>
+          <div className="w-full lg:w-1/2 mx-auto  gap-y-3 flex flex-col text-start">
+          <p className='pb-4'>
             What Is Your Dominant Profession
           </p>
           <Input Labelvalue={'Profession'}
@@ -398,8 +399,8 @@ const ClientspersonalInfo = () => {
            onChange={(value) => handleInputChange('Profession', value)}
           />
           </div>
-          <div className="mx-5">
-            <p>
+          <div className="md:w-1/2 w-full mx-auto text-start">
+            <p className='pb-4 '>
               work history and experience overview
             </p>
             <TextArea labelValue={'Overview'}
@@ -408,13 +409,16 @@ const ClientspersonalInfo = () => {
             />
           </div>
 
-          <div className="md:w-1/2 lg:w-1/4 mx-auto">
+          <div className="md:w-1/2 mx-auto text-start">
               <p>
                 List of skill set you can offer
               </p>
             <MultiSelectDropdown/>
           </div>
-          <div className="">
+          <div className="w-[60%] mx-auto ">
+            <h1 className='pb-10 '>
+              Project Links
+            </h1>
             <PortFolioLinks/>
           </div>
           </div>
@@ -431,14 +435,15 @@ const ClientspersonalInfo = () => {
       </div>
           </div>
       </div>
+
       <div className="w-[100%] mx-auto flex flex-col h-auto text-center px-5 md:px-16"  ref={ClientInfoRef}>
          <div className="w-full lg:w-1/2 mx-auto  gap-y-3 flex flex-col">
-         <h1 className='text-3xl font-bold text-neutral-500'>
+         <h1 className='text-3xl font-bold mt-5'>
           Info As Client 
          </h1>
-         <div className="flex flex-col md:flex-row w-1/2 mx-auto gap-x-4">
+         <div className="flex flex-col gap-4">
           <div className="">
-          <h1 className='text-sm text-start text-neutral-200'>
+          <h1 className='text-sm text-start '>
           Company Name  
          </h1>
          <Input
@@ -450,7 +455,7 @@ const ClientspersonalInfo = () => {
           </div>
 
           <div className="">
-          <h1 className='text-sm text-start text-neutral-200'>
+          <h1 className='text-sm text-start'>
           Company Position  
          </h1>
          <Input
@@ -464,23 +469,23 @@ const ClientspersonalInfo = () => {
           <div className="">
               <CompanySizeSelector/>
           </div>
-          <div className="flex flex-col ">
-          <h1 className='text-sm text-center text-neutral-200'>
+          <div className="">
+          <h1 className='text-sm text-start'>
           Company Address  
          </h1>
           <TextArea labelValue={'Company Address'} 
           value={formData.companyAddress}
           onChange={(value) => handleInputChange('companyAddress', value)}/> 
           </div>
-          <div className="flex flex-col ">
-          <h1 className='text-sm text-center text-neutral-200'>
+          <div className="">
+          <h1 className='text-sm text-start'>
           Company Description  
          </h1>
           <TextArea labelValue={'Company Description'} 
           value={formData.companyDescription}
           onChange={(value) => handleInputChange('companyDescription', value)}/> 
           </div>
-         <div className="my-10 mx-auto w-1/2 lg:w-[100%]">
+         <div className="my-10 mx-auto ">
         <h1 className='text-center mb-2'>
             Links
           </h1>

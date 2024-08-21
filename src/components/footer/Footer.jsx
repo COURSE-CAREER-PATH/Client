@@ -78,7 +78,7 @@ const Footer = () => {
             <a href="https://instagram.com" className="hover:text-gray-400"><i className=""><Instagram/></i></a>
           </div>
           <Link to={'/admin'}>
-        <p className=" text-neutral-400 text-center ">
+        <p className=" text-center ">
           {new Date().getFullYear()}. All rights reserved.
         </p>
           </Link>

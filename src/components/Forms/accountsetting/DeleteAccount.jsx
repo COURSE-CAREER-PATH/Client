@@ -1,19 +1,13 @@
 import React from 'react'
+import { ButtonsTwo, Input } from '../../Buttons'
 
 const DeleteAccount = () => {
   return (
     <>
-    <div>
-      <div className="w-[50%] md:w-[30%] h-[50dvh] border absolute left-[50%] top-[50%] transform -translate-x-1/2 -translate-y-1/2 rounded-2xl border-purple-700 text-center">
-        <h1 className=' text-2xl md:text-3xl mt-3'>
-        Account Settings
-        </h1>
-        <div className="h-full flex flex-col justify-around">
-            <p>Change Email</p>
-            <p>Reset Password</p>
-            <p>Delete account</p>
-        </div>
-      </div>
+    <div className='mx-auto w-[80%] flex flex-col gap-4'>
+     <Input Labelvalue={'Enter Password'}/>
+     <Input Labelvalue={'Confirm Password'}/>
+     <ButtonsTwo value={'Delete'}/>
     </div>
     </>
       )
