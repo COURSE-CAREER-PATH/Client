@@ -356,7 +356,6 @@ const ClientspersonalInfo = () => {
                 </div>
               </div>
               <CountriesList />
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-start">
                 <div className="col-span-2">
                   <p className="font-semi-bold">Aditional Address</p>
                   <Input
@@ -368,6 +367,7 @@ const ClientspersonalInfo = () => {
                     }
                   />
                 </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-start my-4">
                 <div className="col-span-1">
                   <p className="font-semi-bold ">Zip Code</p>
                   <Input
