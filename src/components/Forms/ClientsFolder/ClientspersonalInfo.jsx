@@ -103,9 +103,9 @@ const ClientspersonalInfo = () => {
     ScrollToTop();
   };
   const saveProfile = async () => {
+    ScrollToFreelanceInfo();
     updateFormData();
     saveDataToFirestore();
-
     try {
       const response = await axios.post(`${serverName}user/register`, {
         uid: formData.uid,
@@ -129,8 +129,6 @@ const ClientspersonalInfo = () => {
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data._id);
       localStorage.setItem("userAuth", true);
-
-      ScrollToFreelanceInfo();
     } catch (error) {
       console.log(error, toastOptions);
     }
