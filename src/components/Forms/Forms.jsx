@@ -228,13 +228,13 @@ function Forms() {
   const [secondPasswordDisplay, setSecondPasswordDisplay] = useState(false)
   const [loginPasswordDisplay, setLoginPasswordDisplay] = useState(false)
   const { formData, setFormData, saveDataToFirestore, updateFormData } = useGlobalState();
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   // Use useEffect to listen for auth state changes and update formData.Email
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(Auth, (user) => {
       if (user) {
-        // User is signed in, update formData.Email with user's email
         setFormData((prevState) => ({
           ...prevState,
           Email: user.email,
@@ -264,12 +264,13 @@ function Forms() {
         ...prevData,
         userName: displayName || '',
       }));
-      console.log('Google Sign-In successful');
+      setMessage('Google Sign-In successful. Welcome ' + displayName);
       navigate('/dashboard');
       updateFormData();
       saveDataToFirestore();
     } catch (err) {
       console.error(err.message);
+      setMessage('Error with Google Sign-In: ' + err.message);
     }
   };
 
@@ -277,25 +278,28 @@ function Forms() {
     const provider = new FacebookAuthProvider();
     try {
       await signInWithPopup(Auth, provider);
-      console.log('Facebook Sign-In successful');
+      setMessage('Facebook Sign-In successful');
       navigate('/dashboard');
     } catch (err) {
       console.error(err.message);
+      setMessage('Error with Facebook Sign-In: ' + err.message);
     }
   };
 
   const createAcc = async (e) => {
     e.preventDefault();
+    if (signupPassword !== signupPasswordTwo) {
+      setMessage('Passwords do not match');
+      return;
+    }
+
     try {
-      await createUserWithEmailAndPassword(
-        Auth,
-        signupEmail,
-        signupPassword === signupPasswordTwo ? signupPasswordTwo : alert('Passwords do not match')
-      );
-      console.log('New account created');
+      await createUserWithEmailAndPassword(Auth, signupEmail, signupPassword);
+      setMessage('New account created successfully! Please verify your email.');
       navigate('/dashboard');
     } catch (err) {
       console.error(err);
+      setMessage('Error creating account: ' + err.message);
     }
     setSignupEmail('');
     setSignupPassword('');
@@ -306,24 +310,28 @@ function Forms() {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(Auth, loginEmail, loginPassword);
-      console.log('User logged in');
+      setMessage('Login successful! Welcome back.');
       navigate('/dashboard');
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
+      setMessage('Error logging in: ' + err.message);
     }
     setLoginEmail('');
     setLoginPassword('');
   };
 
- const toggleFirstPasswordDisplay =()=>{
-  setFirstPasswordDisplay(!firstPasswordDisplay)
- }
- const toggleSecondPasswordDisplay =()=>{
-  setSecondPasswordDisplay(!secondPasswordDisplay)
- }
- const toggleLoginPasswordDisplay =()=>{
-  setLoginPasswordDisplay(!loginPasswordDisplay)
- }
+  const toggleFirstPasswordDisplay = () => {
+    setFirstPasswordDisplay(!firstPasswordDisplay);
+  };
+
+  const toggleSecondPasswordDisplay = () => {
+    setSecondPasswordDisplay(!secondPasswordDisplay);
+  };
+
+  const toggleLoginPasswordDisplay = () => {
+    setLoginPasswordDisplay(!loginPasswordDisplay);
+  };
+
   return (
     <div className="block">
       <Main>
@@ -399,6 +407,7 @@ function Forms() {
               </span>
               </div>
               <Button>Sign Up</Button>
+              {message && <p>{message}</p>}
             </Form>
           </SignUpContainer>
 
@@ -440,6 +449,8 @@ function Forms() {
               </div>
               <Link to={'/dashboard'}>Forgot your password?</Link>
               <Button>Log In</Button>
+
+              {message && <p>{message}</p>}
             </Form>
           </SignInContainer>
 

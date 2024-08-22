@@ -6,6 +6,7 @@ import { getAuth } from 'firebase/auth';
 const GlobalStateContext = createContext();
 
 export const GlobalStateProvider = ({ children }) => {
+  const [uid, setUid] = useState(null);
   const [formData, setFormData] = useState({
     uid: '',
     userName: '',
@@ -44,15 +45,18 @@ export const GlobalStateProvider = ({ children }) => {
 
   const [loading, setLoading] = useState(true);
   const auth = getAuth();
-  const [uid, setUid] = useState(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
         setUid(user.uid);
+        setFormData(prevFormData => ({
+          ...prevFormData,
+          uid: user.uid 
+        }));
       } else {
         setUid(null); 
-      }      
+      }            
     });
 
     return () => unsubscribe();

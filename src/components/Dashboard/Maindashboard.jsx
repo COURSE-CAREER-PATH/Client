@@ -17,6 +17,7 @@ import { MdOutlineDevices } from "react-icons/md";
 import { GrStatusGood } from "react-icons/gr";
 import { MdOutlineDangerous } from "react-icons/md";
 import { Link } from 'react-router-dom';
+import UtilityNavBar from './UtilityNavBar';
 
 
 
@@ -46,11 +47,15 @@ const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false);
   const [topDrawer, setTopDrawer] = useState(false);
   const [theme, setTheme] = useState(false)
+  const [chatRoom, setChatRoom] = useState(false)
   const [verified, setVerified] = useState(false)
   const [verificationLoader, setVerificationLoader] = useState(true)
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
+  };
+  const toggleChatRoom = () => {
+    setChatRoom(!chatRoom);
   };
   const toggleTheme = ()=>{
     setTheme(!theme)
@@ -193,7 +198,6 @@ const navigate = useNavigate()
         aria-labelledby="drawer-top-label"
       >
         <div className="w-[50%] md:w-[50%] h-[auto]  absolute left-[50%] top-[50%] transform -translate-x-1/2 -translate-y-1/2   text-center">
-        <img src={Loading} alt="" className='mr-[25%] md:mr-[10%]'/>
         <h1 className='text-2xl text-center my-4'>
            Please wait...
         </h1>
@@ -286,6 +290,7 @@ const navigate = useNavigate()
         </div>
       </div>
       </div>
+      <UtilityNavBar/>
     </>
   );
 };
