@@ -11,6 +11,8 @@ import FirstPrompt from "./components/Forms/FirstPrompt";
 import Maindashboard from "./components/Dashboard/Maindashboard";
 import { GlobalStateProvider } from "./components/Forms/ClientsFolder/GlobalStateProvider";
 import AccountSettings from "./components/Forms/accountsetting/AccountSettings";
+// Import React Toastify CSS
+import 'react-toastify/dist/ReactToastify.css';
 
 
 

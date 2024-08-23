@@ -21,6 +21,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { dataBase } from "../../config/firebase";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const Divheader = "text-start pb-2";
 
@@ -31,6 +32,8 @@ const linkDivs = `flex items-center gap-x-3 mx-2 text-2xl`;
 const ClientspersonalInfo = () => {
   //variables
   const serverName = import.meta.env.VITE_SERVER_NAME;
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   //style options for the toast message
   const toastOptions = {
@@ -107,32 +110,37 @@ const ClientspersonalInfo = () => {
     saveDataToFirestore();
 
     try {
-      const response = await axios.post(`${serverName}user/register`, {
-        uid: formData.uid,
-        userName: formData.userName,
-        firstName: formData.firstName,
-        middleName: formData.middleName,
-        lastName: formData.lastName,
-        mobileNumber: formData.mobileNumber,
-        additionalAddress: formData.aditionalAddress,
-        Email: formData.Email,
-        zipCode: formData.zipCode,
-        Country: formData.Country,
-        State: formData.State,
-        ProfilePicture: formData.ProfilePicture,
-        Language: formData.Language,
-        Bio: formData.Bio,
-        LinkedIn: formData.LinkedIn,
-        Facebook: formData.Facebook,
-        Twitter: formData.Twitter,
-      });
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("userId", response.data._id);
-      localStorage.setItem("userAuth", true);
+      const response = await axios.put(
+        `${serverName}user/updatePersonalUserInfo`,
+        {
+          userName: formData.userName,
+          firstName: formData.firstName,
+          middleName: formData.middleName,
+          lastName: formData.lastName,
+          mobileNumber: formData.mobileNumber,
+          additionalAddress: formData.aditionalAddress,
+          zipCode: formData.zipCode,
+          Country: formData.Country,
+          State: formData.State,
+          Language: formData.Language,
+          Bio: formData.Bio,
+          LinkedIn: formData.LinkedIn,
+          Facebook: formData.Facebook,
+          Twitter: formData.Twitter,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
+      toast.success("profile updated succesfully ");
 
       ScrollToFreelanceInfo();
     } catch (error) {
-      console.log(error, toastOptions);
+      console.log("error uploading :", error);
+      toast.error("could not update profile ", error, toastOptions);
     }
   };
   const saveFreelanceInfo = () => {
@@ -608,6 +616,7 @@ const ClientspersonalInfo = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
