@@ -106,36 +106,32 @@ const ClientspersonalInfo = () => {
     ScrollToTop();
   };
   const saveProfile = async () => {
+    ScrollToFreelanceInfo();
     updateFormData();
     saveDataToFirestore();
-
     try {
-      const response = await axios.put(
-        `${serverName}user/updatePersonalUserInfo`,
-        {
-          userName: formData.userName,
-          firstName: formData.firstName,
-          middleName: formData.middleName,
-          lastName: formData.lastName,
-          mobileNumber: formData.mobileNumber,
-          additionalAddress: formData.aditionalAddress,
-          zipCode: formData.zipCode,
-          Country: formData.Country,
-          State: formData.State,
-          Language: formData.Language,
-          Bio: formData.Bio,
-          LinkedIn: formData.LinkedIn,
-          Facebook: formData.Facebook,
-          Twitter: formData.Twitter,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(response.data);
-      toast.success("profile updated succesfully ");
+      const response = await axios.post(`${serverName}user/register`, {
+        uid: formData.uid,
+        userName: formData.userName,
+        firstName: formData.firstName,
+        middleName: formData.middleName,
+        lastName: formData.lastName,
+        mobileNumber: formData.mobileNumber,
+        additionalAddress: formData.aditionalAddress,
+        Email: formData.Email,
+        zipCode: formData.zipCode,
+        Country: formData.Country,
+        State: formData.State,
+        ProfilePicture: formData.ProfilePicture,
+        Language: formData.Language,
+        Bio: formData.Bio,
+        LinkedIn: formData.LinkedIn,
+        Facebook: formData.Facebook,
+        Twitter: formData.Twitter,
+      });
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data._id);
+      localStorage.setItem("userAuth", true);
 
       ScrollToFreelanceInfo();
     } catch (error) {
@@ -366,7 +362,6 @@ const ClientspersonalInfo = () => {
                 </div>
               </div>
               <CountriesList />
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-start">
                 <div className="col-span-2">
                   <p className="font-semi-bold">Aditional Address</p>
                   <Input
@@ -378,6 +373,7 @@ const ClientspersonalInfo = () => {
                     }
                   />
                 </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-start my-4">
                 <div className="col-span-1">
                   <p className="font-semi-bold ">Zip Code</p>
                   <Input
