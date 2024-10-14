@@ -157,9 +157,9 @@ const navigate = useNavigate()
           </h1>
             </Link>
           </div>
-          <div className='w-1/2'>
+          <div className='w-1/2 flex items-center gap-4'>
             {/* Search Input */}
-        <div className="relative w-full transition-all duration-1000  ">
+        <div className="relative w-[70%] transition-all duration-1000  ">
           <input
             type="search"
             id="search-dropdown"
@@ -175,6 +175,9 @@ const navigate = useNavigate()
             <span className="sr-only">Search</span>
           </button>
         </div>
+          <span onClick={logOut}>
+            <Buttons value={'Log Out'} />
+          </span>
           </div>
         </div>
         </nav>
@@ -314,9 +317,6 @@ const navigate = useNavigate()
 
 
         <div className="flex">
-          <span onClick={logOut}>
-            <Buttons value={'Log Out'} />
-          </span>
           <ButtonsTwo value={'Switch accounts'} />
         </div>
       </div>

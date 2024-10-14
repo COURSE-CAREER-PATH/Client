@@ -11,16 +11,29 @@ import { Buttons, StaticToastNotification } from '../../Buttons';
 const ClientInfo = () => {
   const { formData, setFormData, saveDataToFirestore, updateFormData } = useGlobalState();
   const [displayToast, setDisplayToast] = useState(false);
-  
+  const [showMore, setShowMore] = useState(false); // State for toggling description
+
   const toggleDisplayToast = () => {
     setDisplayToast(!displayToast);
   };
+
+  // Helper function to split the description into words
+  const getDescriptionWords = (description) => description.split(' ');
+
+  // Calculate the number of words and limit to 20
+  const descriptionWords = formData.companyDescription ? getDescriptionWords(formData.companyDescription) : [];
+  const isLongDescription = descriptionWords.length > 20;
+
+  // Show full text if `showMore` is true or limit to 20 words otherwise
+  const displayedDescription = isLongDescription && !showMore
+    ? descriptionWords.slice(0, 20).join(' ') + '...'
+    : formData.companyDescription;
 
   return (
     <div className='flex flex-col items-start relative mt-10 border rounded-3xl pt-5 h-auto mb-72'>
       {displayToast && <StaticToastNotification />}
       
-      <div className="flex flex-col sm:flex-row px-4 sm:px-8 flex-row items-center justify-between w-full border-b">
+      <div className="flex flex-col sm:flex-row px-4 sm:px-8 items-center justify-between w-full border-b">
         <div className="flex-shrink-0 mb-4 sm:mb-0">
           <BrandImageSelector />
         </div>
@@ -31,6 +44,13 @@ const ClientInfo = () => {
             ) : (
               <h1 className='text-3xl sm:text-5xl font-bold'>No added Company Name</h1>
             )}
+          <div>
+            {formData.companyName ? (
+              <h1 className='text-xl sm:text-xl'>{formData.companyPosition}</h1>
+            ) : (
+              <h1 className='text-3xl sm:text-5xl font-bold'>No added Company Position</h1>
+            )}
+          </div>
           </div>
           <div>
             {formData.companySize ? (
@@ -51,8 +71,16 @@ const ClientInfo = () => {
           <div className="px-4 sm:px-8 w-full border-b h-auto flex flex-col items-center justify-center py-2">
             {formData.companyAddress ? <p>{formData.companyAddress}</p> : <p>No added company address</p>}
           </div>
-          <div className="px-4 sm:px-8 h-auto sm:h-52 flex flex-col items-center justify-center py-2">
-            {formData.companyDescription ? <p>{formData.companyDescription}</p> : <p>No added company description</p>}
+          <div className="px-4 sm:px-8 h-auto sm:h-52 flex flex-col items-center justify-center py-2 overflow-y-auto">
+            {formData.companyDescription ? <p>{displayedDescription}</p> : <p>No added company description</p>}
+            {isLongDescription && (
+              <button
+                className="text-blue-500 hover:underline mt-2"
+                onClick={() => setShowMore(!showMore)}
+              >
+                {showMore ? 'See Less' : 'See More'}
+              </button>
+            )}
           </div>
         </div>
         
@@ -78,7 +106,7 @@ const ClientInfo = () => {
               <FaPhoneAlt />
             </a>
           </div>
-          <div className='px-4 pb-2 sm:px-8'>
+          <div className='px-4 sm:px-8'>
             <Buttons value={'Disable Employer status'} click={toggleDisplayToast} />
           </div>
         </div>
