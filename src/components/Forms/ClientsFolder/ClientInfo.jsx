@@ -55,7 +55,6 @@ const ClientInfo = () => {
           <div>
             {formData.companySize ? (
               <div className='flex items-center justify-center sm:justify-start'>
-                <p className='text mr-2 sm:mr-3'>Company Size:</p>
                 {formData.companySize}
                 <p className='mx-1 text-lg sm:text-xl'>employees</p>
               </div>
@@ -84,9 +83,9 @@ const ClientInfo = () => {
           </div>
         </div>
         
-        <div className="px-4 sm:px-8 w-full sm:w-[40%] border-t sm:border-l h-auto sm:h-64 mt-4 sm:mt-0">
+        <div className="px-4 sm:px-8 w-full sm:w-[40%] border-t sm:border-l h-auto sm:h-64 mt-4 pt-5 sm:mt-0">
           <h1 className='mb-3'>Company Links</h1>
-          <div className="flex-wrap flex items-center text-2xl justify-around gap-5">
+          <div className="flex-wrap flex items-center text-2xl justify-around gap-5 bg-neutral-500 py-3 rounded-xl ">
             <a href={formData.companyLinkedIn || '/*'} target='_blank' rel="noopener noreferrer">
               <LinkedinIcon />
             </a>
