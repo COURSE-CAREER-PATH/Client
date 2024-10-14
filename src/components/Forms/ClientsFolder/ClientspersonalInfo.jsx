@@ -209,7 +209,7 @@ const ClientspersonalInfo = () => {
       )}
     </div>
 
-        <div className="flex flex-col md:flex-row mt-16 border rounded-2xl border-purple-700 hover:border-neutral-500">
+        <div className="flex flex-col md:flex-row mt-28 border rounded-2xl border-purple-700 hover:border-neutral-500">
         <div className="md:w-[50%] lg:w-[35%] w-full h-auto border-neutral-500 hover:border-purple-700 md:border-r flex flex-col py-4 items-center">
             <ImageSelector/>
             <h1 className="text-2xl md:text-4xl">
@@ -317,6 +317,9 @@ const ClientspersonalInfo = () => {
           <div className="md:w-[50%] lg:w-[65%] w-full">
           <FreelancerInfo/>
           </div>
+        </div>
+        <div>
+          <ClientInfo/>
         </div>
       <ToastContainer />
     </div>
