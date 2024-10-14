@@ -2,44 +2,56 @@
 import React from 'react';
 import Herobg from '../assets/videos/vid2.mp4'
 import Herobg2 from '../assets/img/img8.jpg'
-import { Buttons,  ButtonsTwo } from "./Buttons";
+import { Buttons,  ButtonsTwo, CssDoodleComponent } from "./Buttons";
 import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 
 
 const Herosection = () => {
   return (
-    <div className=''>
-     <div className="mt-44  z-20 font-Ubuntu">
-      <h1 className=' text-2xl lg:mt-80 lg:text-7xl lg:mb-5 md:mb-2 font-bold w-1/2 ml-10 uppercase'>
-       Elevate your career with <span className=' text-4xl lg:text-8xl text-purple-700'>
-        CCP
-        </span> today
-      
-      </h1>
-     
-      <h2 className='  ml-10 font-mono w-1/2'>
-        Journey with us into establishing an out standing career best suitatable for you
-      </h2>
-     </div>
-     <div className="absolute left-[55%] bottom-[20%] w-1/3 -z-10 border border-purple-500 rounded-2xl">
-   <video src={Herobg} className='md:flex hidden w-full rounded-2xl'
-   autoPlay
-   loop
-   muted
-   />
-    </div>
-     <div className="absolute top-0 -z-10">
-     <img src={Herobg2} alt="" className='lg:hidden flex'/>
-     </div>
-     <div className="flex flex-row items-center mt-20 justify-center">
-     <Link to={'/dept'} className=''>
-            <Buttons value={'Find a Job'} valueTwo={true}/>
-            </Link>
-            <Link to={'*'} >
-            <ButtonsTwo value={'Offer a Job'} valueTwo={true}/>
+    <>
+    <div>
+      <div className="md:flex flex-row h-screen w-[90%] items-center justify-evenly mx-auto hidden">
+        <div className="w-[58%]">
+        <h1 className='text-7xl font-bold font-Ubuntu'>
+            ELEVATE YOUR CAREER WITH <span className='text-purple-700 text-8xl'>CCP</span><br /> TODAY
+          </h1>
+          <p className='mr-8 text-sm'>Journey with us into establishing an outstanding career best suited for you.</p>
+          <div className="flex flex-row items-center mt-4 justify-start">
+          <Link to={'/dept'} className=''> 
+            <ButtonsTwo value={`Get started`} icon={(<ArrowRight/>)} valueTwo={true}/>
             </Link>
      </div>
-    </div>
+        </div>
+          {/* <video src={Herobg} loop autoPlay muted className='w-[40%] border border-purple-700 rounded-2xl'/> */}
+          <CssDoodleComponent/>
+      </div>
+
+
+
+
+
+
+      <div className="md:hidden relative h-screen">
+  <img src={Herobg2} alt="" className="w-full object-cover opacity-15 h-screen" />
+  
+  <div className="absolute top-[25%] w-full text-center px-4">
+    <h1 className='text-3xl font-bold font-Ubuntu w-full mx-auto leading-tight'>
+      ELEVATE YOUR CAREER WITH <span className='text-purple-700 text-4xl'>CCP</span> <br /> TODAY
+    </h1>
+    <p className='mt-4 text-sm w-full mx-auto leading-snug'>
+      Journey with us into establishing an outstanding career best suited for you.
+    </p>
+  </div>
+  
+  <div className="absolute top-[50%] left-1/2 transform -translate-x-1/2">
+    <Link to={'/dept'}>
+    <ButtonsTwo value={`Get started`} icon={(<ArrowRight/>)} valueTwo={true}/>
+    </Link>
+  </div>
+</div>
+</div>
+    </>
   )
 }
 

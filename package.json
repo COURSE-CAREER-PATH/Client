@@ -17,6 +17,7 @@
     "compressorjs": "^1.2.1",
     "countries-state-city-dropdown": "^2.0.7",
     "country-state-city": "^3.2.1",
+    "css-doodle": "^0.40.5",
     "dotenv": "^16.4.5",
     "firebase": "^10.12.5",
     "framer-motion": "^11.2.12",

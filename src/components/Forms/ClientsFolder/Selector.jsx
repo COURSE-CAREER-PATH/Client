@@ -26,6 +26,7 @@ import { useState } from 'react'
             )}
             displayValue={(person) => person?.name}
             onChange={(event) => setQuery(event.target.value)}
+            readOnly
           />
           <ComboboxButton className="group absolute inset-y-0 right-0 px-2.5">
             <ChevronDownIcon className="size-4 fill-white/60 group-data-[hover]:fill-white" />

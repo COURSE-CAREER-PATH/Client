@@ -26,8 +26,8 @@ function Courses() {
   };
 
   return (
-    <>
-      <h1 className="text-lg text-center mt-40  uppercase">
+    <div>
+      <h1 className="text-lg text-center  uppercase">
         Find a job best suitable for you profession
       </h1>
       <input
@@ -63,7 +63,7 @@ function Courses() {
           <img src={Vector} alt="Vector"/>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

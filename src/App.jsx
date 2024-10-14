@@ -13,6 +13,7 @@ import { GlobalStateProvider } from "./components/Forms/ClientsFolder/GlobalStat
 import AccountSettings from "./components/Forms/accountsetting/AccountSettings";
 // Import React Toastify CSS
 import 'react-toastify/dist/ReactToastify.css';
+import EditUserInfo from "./components/Forms/ClientsFolder/edit/EditUserInfo";
 
 
 
@@ -66,7 +67,7 @@ function App() {
             }
           />
           <Route
-            path="/dashboard"
+            path="/dashboard/*"
             element={
               <>
                 <Maindashboard/>
@@ -78,6 +79,14 @@ function App() {
             element={
               <>
                 <AccountSettings/>
+              </>
+            }
+          />
+          <Route
+            path="/edituserinfo/*"
+            element={
+              <>
+                <EditUserInfo/>
               </>
             }
           />

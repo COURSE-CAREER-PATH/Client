@@ -147,7 +147,7 @@ const navigate = useNavigate()
     <>
     <div className="" >
       <div className='fixed w-[100%] z-40'>
-        <nav className="text-center items-center justify-around flex w-full border-b border-neutral-500 h-16 py-10 px-4 backdrop-blur-sm">
+        <nav className="text-center items-center justify-around flex w-full border-b border-neutral-500 h-12  backdrop-blur-sm">
           {navItems.map((item) => (
             <div
               key={item.id}
