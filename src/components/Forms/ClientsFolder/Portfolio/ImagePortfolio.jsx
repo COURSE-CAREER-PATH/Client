@@ -142,7 +142,7 @@ const ImagePortfolio = () => {
           {selectedImages.map((imageUrl, index) => (
             <div key={index} className='relative'>
               <Trash
-                className='absolute m-2 w-4 cursor-pointer'
+                className='absolute m-2 w-4 cursor-pointer z-50'
                 onClick={() => handleDeleteImage(index)}
               />
               {links[index] ? (
