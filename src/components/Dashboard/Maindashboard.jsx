@@ -150,7 +150,7 @@ const navigate = useNavigate()
         <nav className='backdrop-blur-3xl'>
         <div className='flex items-center justify-between px-4 border-neutral-500 w-[70%] mx-auto'>
           <div>
-            <Link to={'./'}>
+            <Link to={'/'}>
           <h1 className="text-4xl font-bold">
             <span className="text-6xl text-purple-700 font-mono">C</span>
             CP
