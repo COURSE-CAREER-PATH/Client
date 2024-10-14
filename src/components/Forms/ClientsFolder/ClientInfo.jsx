@@ -42,13 +42,13 @@ const ClientInfo = () => {
             {formData.companyName ? (
               <h1 className='text-2xl sm:text-3xl font-bold'>{formData.companyName}</h1>
             ) : (
-              <h1 className='text-3xl sm:text-5xl font-bold'>No added Company Name</h1>
+              <h1 className='text-3xl sm:text-xl font-bold'>No added Company Name</h1>
             )}
           <div>
             {formData.companyName ? (
-              <h1 className='text-xl sm:text-xl'>{formData.companyPosition}</h1>
+              <h1 className='text-lg sm:text-xl '>{formData.companyPosition}</h1>
             ) : (
-              <h1 className='text-3xl sm:text-5xl font-bold'>No added Company Position</h1>
+              <h1 className='text-lg sm:text-xl font-bold'>No added Company Position</h1>
             )}
           </div>
           </div>
