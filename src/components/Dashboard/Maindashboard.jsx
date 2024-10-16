@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { User, Briefcase, Bell, Menu, Handshake, X, Info, Sun, Moon } from 'lucide-react';
+import { User, Briefcase, Bell, Menu, Handshake, X, Info, Sun, Moon, FileSearch, Search } from 'lucide-react';
 import ProfilePage from './ProfilePage';
 import { enablePageScroll, disablePageScroll } from 'scroll-lock';
 import JopApplicationPage from './JopApplicationPage';
@@ -23,9 +23,9 @@ import UtilityNavBar from './UtilityNavBar';
 
 
 const navItems = [
-  { id: 'profile', icon: <User />, label: 'Profile' },
-  { id: 'apply', icon: <Briefcase />, label: 'Apply for Job' },
+  { id: 'apply', icon: <Briefcase />, label: 'Jobs' },
   { id: 'offer', icon: <Handshake />, label: 'Offer a Job' },
+  { id: 'profile', icon: <User />, label: 'Profile' },
   { id: 'notification', icon: <Bell />, label: 'Notification' },
   { id: 'menu', icon: <Menu />, label: 'Menu' }, // This is the Menu button
 ];
@@ -147,7 +147,41 @@ const navigate = useNavigate()
     <>
     <div className="" >
       <div className='fixed w-[100%] z-40'>
-        <nav className="text-center items-center justify-around flex w-full border-b border-neutral-500 h-16 py-10 px-4 backdrop-blur-sm">
+        <nav className='backdrop-blur-3xl'>
+        <div className='flex items-center justify-between px-4 border-neutral-500 w-[70%] mx-auto'>
+          <div>
+            <Link to={'/'}>
+          <h1 className="text-4xl font-bold">
+            <span className="text-6xl text-purple-700 font-mono">C</span>
+            CP
+          </h1>
+            </Link>
+          </div>
+          <div className='w-1/2 flex items-center gap-4'>
+            {/* Search Input */}
+        <div className="relative w-[70%] transition-all duration-1000  ">
+          <input
+            type="search"
+            id="search-dropdown"
+            className="block p-2.5 w-full text-sm text-gray-900 bg-customGray rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 rounded-2xl"
+            placeholder="Search..."
+            required
+          />
+          <button
+            type="submit"
+            className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-customBlue rounded-e-lg   focus:outline-none"
+          >
+            <Search className="w-4 h-4 " />
+            <span className="sr-only">Search</span>
+          </button>
+        </div>
+          <span onClick={logOut}>
+            <Buttons value={'Log Out'} />
+          </span>
+          </div>
+        </div>
+        </nav>
+        <nav className="text-center items-center justify-around flex w-full border-y border-neutral-500 h-12  backdrop-blur-sm">
           {navItems.map((item) => (
             <div
               key={item.id}
@@ -173,14 +207,14 @@ const navigate = useNavigate()
           className="flex w-[400%] transition-transform duration-500 ease-in-out gap-10" 
           style={{ transform: `translateX(-${navItems.findIndex(item => item.id === activeItem) * 25}%)` }}
         >
-          <div className="w-[100%] mx-auto overflow-hidden">
-            <ProfilePage />
-          </div>
           <div className="w-[100%] mx-auto">
             <JopApplicationPage />
           </div>
           <div className="w-[100%] mx-auto">
             <JobPostingPage />
+          </div>
+          <div className="w-[100%] mx-auto overflow-hidden">
+            <ProfilePage />
           </div>
           <div className="w-[100%] mx-auto">
             <NotificationPage />
@@ -283,9 +317,6 @@ const navigate = useNavigate()
 
 
         <div className="flex">
-          <span onClick={logOut}>
-            <Buttons value={'Log Out'} />
-          </span>
           <ButtonsTwo value={'Switch accounts'} />
         </div>
       </div>

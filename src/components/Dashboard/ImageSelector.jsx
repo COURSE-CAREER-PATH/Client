@@ -40,7 +40,7 @@ const ImageSelector = () => {
   };
 
   return (
-    <div className="">
+    <div className="mx-auto">
       <div className="flex flex-col mb-5">
         <div className="relative">
           {selectedImage ? (
@@ -57,7 +57,7 @@ const ImageSelector = () => {
           )}
           <Label
             htmlFor="file-input"
-            className="absolute bottom-0 right-0 transform translate-x-1/4 translate-y-1/4 transition active:scale-125 cursor-pointer"
+            className="absolute bottom-3 left-0 transform translate-x-1/4 translate-y-1/4 transition active:scale-125 cursor-pointer"
           >
             <FaCamera size={30} className="" />
           </Label>

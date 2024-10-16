@@ -14,11 +14,14 @@ export const GlobalStateProvider = ({ children }) => {
     middleName: '',
     lastName: '',
     mobileNumber: '',
+    Password: '',
+    PasswordTwo: '',
     aditionalAddress: '',
     Email: '',
     zipCode: '',
     Country: '',
     State: '',
+    City: '',
     ProfilePicture: '',
     Language: '',
     Bio: '',
@@ -29,7 +32,9 @@ export const GlobalStateProvider = ({ children }) => {
     Overview: '',
     Profession: '',
     ratings: [],
-    Portfolio: '',
+    Portfolio: [],
+    links: [],
+    EmployerStatus: false,
     companyLogo: '',
     companyName: '',
     companyPosition: '',
@@ -46,6 +51,7 @@ export const GlobalStateProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const auth = getAuth();
 
+  
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
@@ -112,9 +118,11 @@ export const GlobalStateProvider = ({ children }) => {
       console.error("Error updating document: ", error);
     }
   };
+ 
 
   return (
     <GlobalStateContext.Provider value={{ formData, setFormData, saveDataToFirestore, updateFormData, loading }}>
+      <div className="fixed -z-20 h-full w-full bg-black"><div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div><div className="absolute left-0 right-0 top-[-10%] h-[1000px] w-[1000px] rounded-full bg-[radial-gradient(circle_400px_at_50%_300px,#000,#020617)]"></div></div>
       {children}
     </GlobalStateContext.Provider>
   );

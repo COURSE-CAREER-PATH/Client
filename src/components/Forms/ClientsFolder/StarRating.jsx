@@ -4,14 +4,19 @@ import { useGlobalState } from './GlobalStateProvider';
 
 const StarRating = ({ totalStars = 5, index }) => { // Accept index or id as a prop
     const { formData, setFormData } = useGlobalState();
-    const [rating, setRating] = useState(formData.ratings[index] || 0); // Get initial rating from formData
+    
+    // Ensure ratings is an array or provide a default empty array
+    const ratings = formData.ratings || [];
+
+    // Set initial rating based on the formData ratings
+    const [rating, setRating] = useState(ratings[index] || 0); 
     const [hoverRating, setHoverRating] = useState(0);
   
     const handleRatingChange = (newRating) => {
       setRating(newRating);
 
       // Create a copy of the ratings array and update the rating at the current index
-      const updatedRatings = [...formData.ratings];
+      const updatedRatings = [...ratings];
       updatedRatings[index] = newRating;
 
       setFormData({ ...formData, ratings: updatedRatings }); // Update formData with the updated array
@@ -36,6 +41,6 @@ const StarRating = ({ totalStars = 5, index }) => { // Accept index or id as a p
         })}
       </div>
     );
-  }
+};
 
 export default StarRating;
