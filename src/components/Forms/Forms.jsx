@@ -317,8 +317,7 @@ function Forms() {
       updateFormData();
       saveDataToFirestore();
     } catch (err) {
-      console.error(err.message);
-      setMessage("Error with Google Sign-In: " + err.message);
+      handleAuthenticationErrors(err);
     }
   };
 
@@ -450,19 +449,17 @@ function Forms() {
     toast.error(message, toastOptions);
   };
 
-
   const logintoAcc = async (e) => {
     e.preventDefault();
     if (!loginEmail || !loginPassword) {
-      toast.error('Please enter both email and password.');
+      toast.error("Please enter both email and password.");
       return;
     }
-    
-    try {
-      console.log('Email:', loginEmail);
-      console.log('Password:', loginPassword); 
-      await signInWithEmailAndPassword(Auth, loginEmail, loginPassword);
 
+    try {
+      console.log("Email:", loginEmail);
+      console.log("Password:", loginPassword);
+      await signInWithEmailAndPassword(Auth, loginEmail, loginPassword);
 
       const response = await axios.post(`${serverName}user/authenticate`, {
         Email: loginEmail,
@@ -492,6 +489,7 @@ function Forms() {
     // Firebase Authentication Error Handling
     if (error.code) {
       switch (error.code) {
+        // Email/Password Sign-In Errors
         case "auth/user-not-found":
           toast.error("No user found with this email. Please sign up first.");
           break;
@@ -511,6 +509,30 @@ function Forms() {
             "Too many failed login attempts. Please try again later."
           );
           break;
+
+        // Google Sign-In Errors
+        case "auth/account-exists-with-different-credential":
+          toast.error(
+            "An account already exists with the same email address but different sign-in credentials."
+          );
+          break;
+        case "auth/popup-blocked":
+          toast.error(
+            "Sign-in popup was blocked by your browser. Please allow popups and try again."
+          );
+          break;
+        case "auth/popup-closed-by-user":
+          toast.error(
+            "Sign-in popup was closed before completing the sign-in. Please try again."
+          );
+          break;
+        case "auth/cancelled-popup-request":
+          toast.error("Sign-in was canceled. Please try again.");
+          break;
+        case "auth/operation-not-allowed":
+          toast.error("Google sign-in is not enabled. Please contact support.");
+          break;
+
         default:
           toast.error("An unexpected error occurred. Please try again.");
           break;

@@ -1,20 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      fontFamily:{
-        Ubuntu: ['Ubuntu'],
-        'playwrite': ['"Playwrite DK Uloopet"', 'sans-serif'],
-        'josefin': ["Josefin Sans", "sans-serif"]
-      
-      }
+      fontFamily: {
+        Ubuntu: ["Ubuntu"],
+        playwrite: ['"Playwrite DK Uloopet"', "sans-serif"],
+        josefin: ["Josefin Sans", "sans-serif"],
+        sans: ["Inter", "sans-serif"],
+      },
     },
   },
-  plugins: [
-    require('tailwind-scrollbar'),
-  ],
-}
+  plugins: [require("tailwind-scrollbar")],
+};
